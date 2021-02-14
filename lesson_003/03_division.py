@@ -9,10 +9,12 @@
 # Формат вывода:
 #   Целочисленное деление ХХХ на YYY дает ZZZ
 
-a, b = 179, 37
+a, b = 370, 37
 print(f'Целочисленное деление {a} на {b} дает', end = ' ')
 div_result = 0
 while a > b:
     a = a - b
     div_result += 1
 print(div_result)
+
+# TODO: 370 на 37 будет 10

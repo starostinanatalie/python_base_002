@@ -15,6 +15,11 @@ for _ in range(3):
 # Написать функцию рисования пузырька, принммающую 3 (или более) параметра: точка рисования, шаг и цвет
 sd.sleep(3)
 sd.clear_screen()
+
+# TODO: начиная с 3го модуля мы стремимся соблюдать PEP8.
+#     Перемеинуйте функцию bubble в слово/словосочетание, глагол, чтобы он отражал суть - "нарисовать пузырек".
+#     Функции и методы должны носить названия-глаголы. А объекты - названия-существительные. И bubble сейчас как раз
+#     больше похож на существительное, а должен быть похож на глагол/сказуемое.
 def bubble(point, step, colour):
     radius = 50
     for _ in range(3):
@@ -47,10 +52,14 @@ sd.clear_screen()
 for _ in range(100):
     point = sd.random_point()
     step = random.randint(2, 10)
+
+    # TODO: можете использовать sd.random_color(), чтобы получить случайный цвет.
     red = random.randint(0, 255)
     green = random.randint(0, 255)
     blue = random.randint(0, 255)
     bubble(point=point, step=step, colour=[red, green, blue])
 
+
+# TODO: нажмите Ctrl + Alt + L, чтобы pyCharm "причесал" стиль кода.
 
 sd.pause()
