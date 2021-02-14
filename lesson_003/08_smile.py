@@ -5,6 +5,7 @@ import random
 
 import simple_draw
 
+
 # Написать функцию отрисовки смайлика по заданным координатам
 # Форма рожицы-смайлика на ваше усмотрение
 # Параметры функции: кордината X, координата Y, цвет.
@@ -26,9 +27,12 @@ def smiles_draw(x, y, colour):
     simple_draw.line(smile_point_two, smile_point_three, colour, 2)
     simple_draw.line(smile_point_three, smile_point_four, colour, 2)
 
+
 for _ in range(10):
     x = random.randint(0, 500)
     y = random.randint(0, 500)
-    smiles_draw(x, y, [216,53,225])
+    smiles_draw(x, y, [216, 53, 225])
 
 simple_draw.pause()
+
+# зачет!
