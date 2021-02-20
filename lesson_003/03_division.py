@@ -12,7 +12,7 @@
 a, b = 370, 37
 print(f'Целочисленное деление {a} на {b} дает', end = ' ')
 div_result = 0
-while a > b:
+while a >= b:
     a = a - b
     div_result += 1
 print(div_result)
