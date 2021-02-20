@@ -17,4 +17,4 @@ while a >= b:
     div_result += 1
 print(div_result)
 
-# TODO: 370 на 37 будет 10
+
