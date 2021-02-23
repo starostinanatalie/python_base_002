@@ -54,19 +54,14 @@ store = {
 #         подсчет стоимости товара
 #     вывод на консоль количества и стоимости товара на складе
 
-for good, pn in goods.items():
+for good, part_number in goods.items():
     quantity = 0
     cost = 0
 
-    # TODO: почему pn? что за n?
-    for n in store[pn]:
-        quantity += n['quantity']
-        cost += n['price'] * n['quantity']
+    for items in store[part_number]:
+        quantity += items['quantity']
+        cost += items['price'] * items['quantity']
 
-    # TODO: good, quantity и cost - хороший понятный нейминг переменных.
-    #  n, np, a, b, c - плохой и не понятный, если это только не мат.формула.
     print(f'{good} - {quantity} шт, стоимость {cost} руб')
-
-# TODO: поправьте имена переменных!)
 
 # почти
