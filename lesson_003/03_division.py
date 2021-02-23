@@ -17,4 +17,4 @@ while a >= b:
     div_result += 1
 print(div_result)
 
-
+# зачет!

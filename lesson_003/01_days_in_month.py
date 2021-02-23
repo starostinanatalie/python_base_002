@@ -18,3 +18,5 @@ if 1 <= month <= 12:
     print(f'В {month} месяце - {days_in_month[month - 1]} дней')
 else:
     print('Вы ввели неправильный номер месяца. ')
+
+# зачет!

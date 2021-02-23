@@ -12,12 +12,40 @@ height_brick = int(input('Введите высоту кирпича: '))
 width_brick = int(input('Введите ширину кирпича: '))
 simple_draw.resolution = (width_screen, height_screen)
 
+# TODO: enumerate - вот тут можно было. Тогда "y % (2 * height_brick)" упростилось до "row % 2".
+#  На всякий пожарный: enumerate - хорошая функция. Оптимизированная и популярная, по ней легко понять, что для
+#  алгоритм важен индекс элемента (в нашем случае индекс определяет номер ряда кирпичной кладки). Т.е. добавление
+#  enumerate(range(...)) - это не "городить огород", а вполне хорошая практика.
+#  .
+#  Но все добровольно. Если хочется без enumerate - можно и без, главное запомните что он есть, он полезный и
+#  часто спасает положение.
 for y in range(0, height_screen, height_brick):
+
+
+
+
+
+
     if y % (2 * height_brick) == 0:
         slide_x = 0
     else:
         slide_x = int(width_brick / 2)
-    #  Подказка: для первого цикла будет удобно добавить еще enumerate (пример в конце);
+    # TODO: дополнительно. Если if|else нужен только для того, чтобы прибавить/отнять какое-то число от исходного, то
+    #  можно использовать тернальный оператор if|else. Пример:
+    #               if some_condition:
+    #                   a = 100
+    #               else:                       			 # было
+    #                   a = 200.
+    #  .
+    #               a = 100 if some_condition else 200       # стало
+    #  .              ↑  ↑                          ↑
+    #  Аналогично и +=, *=, -=, /=:
+    #               a *= 4 if some_condition_2 else 2        # если ДА - умножим в 4 раза, если НЕТ - в 2 раза
+    #  .               ↑ ↑                          ↑
+
+
+
+
     for x in range(slide_x, width_screen, width_brick):
         left_bottom = simple_draw.get_point(x, y)
         right_top = simple_draw.get_point(x + width_brick, y + height_brick)
@@ -45,3 +73,5 @@ for y in range(0, height_screen, height_brick):
 #           рисуем кирпич
 
 simple_draw.pause()
+
+# почти
