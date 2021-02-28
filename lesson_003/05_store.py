@@ -64,4 +64,4 @@ for good, part_number in goods.items():
 
     print(f'{good} - {quantity} шт, стоимость {cost} руб')
 
-# почти
+# зачет!

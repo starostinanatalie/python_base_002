@@ -23,4 +23,4 @@ for row, y in enumerate(range(0, height_screen, height_brick)):
 
 simple_draw.pause()
 
-# почти
+# зачет!
