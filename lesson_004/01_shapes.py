@@ -36,7 +36,61 @@ import simple_draw as sd
 # sd.line()
 # Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
-# TODO здесь ваш код
+
+def draw_triangle(initial_point, angle, side_length):
+    side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
+    side_one.draw(color=[212,93,225])
+    side_two = sd.get_vector(start_point=side_one.end_point, angle=angle + 120, length=side_length, width=5)
+    side_two.draw(color=[212, 93, 225])
+    side_three = sd.get_vector(start_point=side_two.end_point, angle=angle + 240, length=side_length, width=5)
+    side_three.draw(color=[212, 93, 225])
+
+def draw_square(initial_point, angle, side_length):
+    side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
+    side_one.draw(color=[212,93,225])
+    side_two = sd.get_vector(start_point=side_one.end_point, angle=angle + 90, length=side_length, width=5)
+    side_two.draw(color=[212, 93, 225])
+    side_three = sd.get_vector(start_point=side_two.end_point, angle=angle + 180, length=side_length, width=5)
+    side_three.draw(color=[212, 93, 225])
+    side_four = sd.get_vector(start_point=side_three.end_point, angle=angle + 270, length=side_length, width=5)
+    side_four.draw(color=[212, 93, 225])
+
+def draw_pentagon(initial_point, angle, side_length):
+    side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
+    side_one.draw(color=[212,93,225])
+    side_two = sd.get_vector(start_point=side_one.end_point, angle=angle + 72, length=side_length, width=5)
+    side_two.draw(color=[212, 93, 225])
+    side_three = sd.get_vector(start_point=side_two.end_point, angle=angle + 144, length=side_length, width=5)
+    side_three.draw(color=[212, 93, 225])
+    side_four = sd.get_vector(start_point=side_three.end_point, angle=angle + 216, length=side_length, width=5)
+    side_four.draw(color=[212, 93, 225])
+    side_five = sd.get_vector(start_point=side_four.end_point, angle=angle + 288, length=side_length, width=5)
+    side_five.draw(color=[212, 93, 225])
+
+def draw_hexagon(initial_point, angle, side_length):
+    side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
+    side_one.draw(color=[212,93,225])
+    side_two = sd.get_vector(start_point=side_one.end_point, angle=angle + 60, length=side_length, width=5)
+    side_two.draw(color=[212, 93, 225])
+    side_three = sd.get_vector(start_point=side_two.end_point, angle=angle + 120, length=side_length, width=5)
+    side_three.draw(color=[212, 93, 225])
+    side_four = sd.get_vector(start_point=side_three.end_point, angle=angle + 180, length=side_length, width=5)
+    side_four.draw(color=[212, 93, 225])
+    side_five = sd.get_vector(start_point=side_four.end_point, angle=angle + 240, length=side_length, width=5)
+    side_five.draw(color=[212, 93, 225])
+    side_six = sd.get_vector(start_point=side_five.end_point, angle=angle + 300, length=side_length, width=5)
+    side_six.draw(color=[212, 93, 225])
+
+
+x = int(input('Введите координату x начальной точки (лучше не с краю, чтобы фигура поместилась): '))
+y = int(input('Введите координату y начальной точки: '))
+point = sd.get_point(x, y)
+angle = int(input('Введите угол наклона всей фигуры: '))
+length = int(input('Введите длину стороны фигуры: '))
+draw_triangle(point, angle, length)
+draw_square(point, angle, length)
+draw_pentagon(point, angle, length)
+draw_hexagon(point,angle, length)
 
 # Часть 1-бис.
 # Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
