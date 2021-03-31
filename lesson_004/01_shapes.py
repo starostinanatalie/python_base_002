@@ -54,6 +54,12 @@ def draw_triangle(initial_point, angle, side_length):
     side_two.draw(color=[212, 93, 225])
     side_three = sd.get_vector(start_point=side_two.end_point, angle=angle + 240, length=side_length, width=5)
     side_three.draw(color=[212, 93, 225])
+# TODO: "ни единого разрыва" (с)
+#  При отрисовке N граней фигуры, у нас остается зазор, разрыв, между 1 и N сторонами, т.к. при отрисовке фигуры
+#  накапливается погрешность в углах. Поэтому последняя грань не попадает в начальную точку, а немного промахивается.
+#  Как быть? В цикле нарисовать N-1 грань, используя sd.get_vector() и sd.draw(),
+#  а N`ую грань отрисовать, используя sd.line().
+
 
 def draw_square(initial_point, angle, side_length):
     side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
