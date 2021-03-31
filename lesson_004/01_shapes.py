@@ -36,6 +36,16 @@ import simple_draw as sd
 # sd.line()
 # Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
+# TODO: добавьте внутрь ф-ций циклы, чтобы внутри каждой ф-ции был цикл for. Т.е. вместо:
+#       vector_1 = ....
+#       vector_1.draw()
+#       ...
+#       vector_100500 = ....
+#       vector_100500.draw()
+#  .
+#  Мы получим:
+#       for angel in range(...):
+#           ...
 
 def draw_triangle(initial_point, angle, side_length):
     side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
