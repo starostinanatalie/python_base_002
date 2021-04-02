@@ -38,49 +38,41 @@ import simple_draw as sd
 
 
 def draw_triangle(initial_point, angle, side_length):
-    side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
-    side_one.draw(color=[212,93,225])
-    side_two = sd.get_vector(start_point=side_one.end_point, angle=angle + 120, length=side_length, width=5)
-    side_two.draw(color=[212, 93, 225])
-    side_three = sd.get_vector(start_point=side_two.end_point, angle=angle + 240, length=side_length, width=5)
-    side_three.draw(color=[212, 93, 225])
+    point = initial_point
+    angle = angle
+    for _ in range(4):
+        side = sd.get_vector(start_point=point, angle=angle, length=side_length)
+        side.draw(color=[212,93,225], width=5)
+        point = side.end_point
+        angle = angle + 120
+
 
 def draw_square(initial_point, angle, side_length):
-    side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
-    side_one.draw(color=[212,93,225])
-    side_two = sd.get_vector(start_point=side_one.end_point, angle=angle + 90, length=side_length, width=5)
-    side_two.draw(color=[212, 93, 225])
-    side_three = sd.get_vector(start_point=side_two.end_point, angle=angle + 180, length=side_length, width=5)
-    side_three.draw(color=[212, 93, 225])
-    side_four = sd.get_vector(start_point=side_three.end_point, angle=angle + 270, length=side_length, width=5)
-    side_four.draw(color=[212, 93, 225])
+    point = initial_point
+    angle = angle
+    for _ in range(5):
+        side = sd.get_vector(start_point=point, angle=angle, length=side_length)
+        side.draw(color=[212, 93, 225], width=5)
+        point = side.end_point
+        angle = angle + 90
 
 def draw_pentagon(initial_point, angle, side_length):
-    side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
-    side_one.draw(color=[212,93,225])
-    side_two = sd.get_vector(start_point=side_one.end_point, angle=angle + 72, length=side_length, width=5)
-    side_two.draw(color=[212, 93, 225])
-    side_three = sd.get_vector(start_point=side_two.end_point, angle=angle + 144, length=side_length, width=5)
-    side_three.draw(color=[212, 93, 225])
-    side_four = sd.get_vector(start_point=side_three.end_point, angle=angle + 216, length=side_length, width=5)
-    side_four.draw(color=[212, 93, 225])
-    side_five = sd.get_vector(start_point=side_four.end_point, angle=angle + 288, length=side_length, width=5)
-    side_five.draw(color=[212, 93, 225])
+    point = initial_point
+    angle = angle
+    for _ in range(6):
+        side = sd.get_vector(start_point=point, angle=angle, length=side_length)
+        side.draw(color=[212, 93, 225], width=5)
+        point = side.end_point
+        angle = angle + 72
 
 def draw_hexagon(initial_point, angle, side_length):
-    side_one = sd.get_vector(start_point=initial_point, angle=angle, length=side_length, width=5)
-    side_one.draw(color=[212,93,225])
-    side_two = sd.get_vector(start_point=side_one.end_point, angle=angle + 60, length=side_length, width=5)
-    side_two.draw(color=[212, 93, 225])
-    side_three = sd.get_vector(start_point=side_two.end_point, angle=angle + 120, length=side_length, width=5)
-    side_three.draw(color=[212, 93, 225])
-    side_four = sd.get_vector(start_point=side_three.end_point, angle=angle + 180, length=side_length, width=5)
-    side_four.draw(color=[212, 93, 225])
-    side_five = sd.get_vector(start_point=side_four.end_point, angle=angle + 240, length=side_length, width=5)
-    side_five.draw(color=[212, 93, 225])
-    side_six = sd.get_vector(start_point=side_five.end_point, angle=angle + 300, length=side_length, width=5)
-    side_six.draw(color=[212, 93, 225])
-
+    point = initial_point
+    angle = angle
+    for _ in range(7):
+        side = sd.get_vector(start_point=point, angle=angle, length=side_length)
+        side.draw(color=[212, 93, 225], width=5)
+        point = side.end_point
+        angle = angle + 60
 
 x = int(input('Введите координату x начальной точки (лучше не с краю, чтобы фигура поместилась): '))
 y = int(input('Введите координату y начальной точки: '))
