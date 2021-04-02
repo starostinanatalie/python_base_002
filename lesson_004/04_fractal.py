@@ -26,7 +26,29 @@ import simple_draw as sd
 
 # можно поиграть -шрифтами- цветами и углами отклонения
 
-# TODO здесь ваш код
+def draw_branches(initial_point, angle, branch_length):
+    if branch_length < 10:
+        return
+    point_left = initial_point
+    point_right = initial_point
+    angle_left = angle - 30
+    angle_right = angle + 30
+    branch_length = branch_length
+    left_branch = sd.get_vector(start_point=point_left, angle=angle_left, length=branch_length)
+    left_branch.draw()
+    right_branch = sd.get_vector(start_point=point_right, angle=angle_right, length=branch_length)
+    right_branch.draw()
+    point_left = left_branch.end_point
+    point_right = right_branch.end_point
+    branch_length = branch_length * 0.75
+    draw_branches(point_left, angle_left, branch_length)
+    draw_branches(point_right, angle_right, branch_length)
+
+root_point = sd.get_point(300,0)
+root = sd.get_vector(root_point, 90, 30)
+root.draw()
+draw_branches(root.end_point, 90, 100)
+
 
 # 4) Усложненное задание (делать по желанию)
 # - сделать рандомное отклонение угла ветвей в пределах 40% от 30-ти градусов
