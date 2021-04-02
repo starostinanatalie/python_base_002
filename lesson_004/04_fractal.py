@@ -49,6 +49,34 @@ root = sd.get_vector(root_point, 90, 30)
 root.draw()
 draw_branches(root.end_point, 90, 100)
 
+sd.sleep(5)
+sd.clear_screen()
+
+def draw_branches_advanced(initial_point, angle, branch_length):
+    if branch_length < 5:
+        return
+    point_left = initial_point
+    point_right = initial_point
+    delta_angle = sd.random_number(30 - 30*0.4, 30 + 30*0.4)
+    angle_left = angle - delta_angle
+    angle_right = angle + delta_angle
+    branch_length = branch_length
+    left_branch = sd.get_vector(start_point=point_left, angle=angle_left, length=branch_length)
+    left_branch.draw()
+    right_branch = sd.get_vector(start_point=point_right, angle=angle_right, length=branch_length)
+    right_branch.draw()
+    point_left = left_branch.end_point
+    point_right = right_branch.end_point
+    delta_length = sd.random_number(-20, 20) * 0.01
+    branch_length = branch_length * (0.75 + delta_length)
+    draw_branches_advanced(point_left, angle_left, branch_length)
+    draw_branches_advanced(point_right, angle_right, branch_length)
+
+root_point = sd.get_point(300,0)
+root = sd.get_vector(root_point, 90, 30)
+root.draw()
+draw_branches_advanced(root.end_point, 90, 100)
+
 
 # 4) Усложненное задание (делать по желанию)
 # - сделать рандомное отклонение угла ветвей в пределах 40% от 30-ти градусов
