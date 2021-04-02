@@ -47,6 +47,8 @@ def draw_triangle(initial_point, angle, side_length):
         angle = angle + 120
 
 
+
+
 def draw_square(initial_point, angle, side_length):
     point = initial_point
     angle = angle
