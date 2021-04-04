@@ -42,11 +42,16 @@ def draw_triangle(initial_point, angle, side_length):
     angle = angle
     for _ in range(4):
         side = sd.get_vector(start_point=point, angle=angle, length=side_length)
-        side.draw(color=[212,93,225], width=5)
+        side.draw(color=[212,93,225], width=1)
         point = side.end_point
         angle = angle + 120
+# TODO: (восстановлено)
+#  При отрисовке N граней фигуры, у нас остается зазор, разрыв, между 1 и N сторонами, т.к. при отрисовке фигуры
+#  накапливается погрешность в углах. Поэтому последняя грань не попадает в начальную точку, а немного промахивается.
+#  Как быть? В цикле нарисовать N-1 грань, используя sd.get_vector() и sd.draw(),
+#  а N`ую грань отрисовать, используя sd.line().
 
-
+# TODO: заменил "width=5" на "width=1", чтобы было очевиднее в чем проблема
 
 
 def draw_square(initial_point, angle, side_length):
@@ -54,7 +59,7 @@ def draw_square(initial_point, angle, side_length):
     angle = angle
     for _ in range(5):
         side = sd.get_vector(start_point=point, angle=angle, length=side_length)
-        side.draw(color=[212, 93, 225], width=5)
+        side.draw(color=[212, 93, 225], width=1)
         point = side.end_point
         angle = angle + 90
 
@@ -63,7 +68,7 @@ def draw_pentagon(initial_point, angle, side_length):
     angle = angle
     for _ in range(6):
         side = sd.get_vector(start_point=point, angle=angle, length=side_length)
-        side.draw(color=[212, 93, 225], width=5)
+        side.draw(color=[212, 93, 225], width=1)
         point = side.end_point
         angle = angle + 72
 
@@ -72,7 +77,7 @@ def draw_hexagon(initial_point, angle, side_length):
     angle = angle
     for _ in range(7):
         side = sd.get_vector(start_point=point, angle=angle, length=side_length)
-        side.draw(color=[212, 93, 225], width=5)
+        side.draw(color=[212, 93, 225], width=1)
         point = side.end_point
         angle = angle + 60
 
