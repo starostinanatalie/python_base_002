@@ -27,7 +27,7 @@ import simple_draw as sd
 # можно поиграть -шрифтами- цветами и углами отклонения
 
 def draw_branches(initial_point, angle, branch_length):
-    if branch_length < 10:
+    if branch_length < 5:
         return
     point_left = initial_point
     point_right = initial_point
@@ -52,8 +52,9 @@ draw_branches(root.end_point, 90, 100)
 sd.sleep(5)
 sd.clear_screen()
 
+
 def draw_branches_advanced(initial_point, angle, branch_length):
-    if branch_length < 5:
+    if branch_length < 10:
         return
     point_left = initial_point
     point_right = initial_point
