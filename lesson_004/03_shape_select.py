@@ -25,6 +25,7 @@ x = (sd.resolution[0] - length) / 2
 delta_y = (length / (2 * math.sin(math.pi / angle_quantity))) * 2
 y = (sd.resolution[1] - int(delta_y)) / 2
 point = sd.get_point(x, y)
+
 print('''Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:
 1. Желтый
 2. Зеленый
