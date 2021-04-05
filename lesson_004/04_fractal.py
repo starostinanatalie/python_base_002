@@ -35,11 +35,9 @@ def draw_branches(initial_point, angle, branch_length):
     left_branch.draw()
     right_branch = sd.get_vector(start_point=initial_point, angle=angle_right, length=branch_length)
     right_branch.draw()
-    point_left = left_branch.end_point
-    point_right = right_branch.end_point
     branch_length = branch_length * 0.75
-    draw_branches(point_left, angle_left, branch_length)
-    draw_branches(point_right, angle_right, branch_length)
+    draw_branches(left_branch.end_point, angle_left, branch_length)
+    draw_branches(right_branch.end_point, angle_right, branch_length)
 
 root_point = sd.get_point(300,0)
 root = sd.get_vector(root_point, 90, 30)
@@ -59,12 +57,10 @@ def draw_branches_advanced(initial_point, angle, branch_length):
     left_branch.draw()
     right_branch = sd.get_vector(start_point=initial_point, angle=angle_right, length=branch_length)
     right_branch.draw()
-    point_left = left_branch.end_point
-    point_right = right_branch.end_point
     delta_length = sd.random_number(-20, 20) * 0.01
     branch_length = branch_length * (0.75 + delta_length)
-    draw_branches_advanced(point_left, angle_left, branch_length)
-    draw_branches_advanced(point_right, angle_right, branch_length)
+    draw_branches_advanced(left_branch.end_point, angle_left, branch_length)
+    draw_branches_advanced(right_branch.end_point, angle_right, branch_length)
 
 root_point = sd.get_point(300,0)
 root = sd.get_vector(root_point, 90, 30)
