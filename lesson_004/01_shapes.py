@@ -36,45 +36,34 @@ import simple_draw as sd
 # sd.line()
 # Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
+def draw_polygon(angles_quantity, initial_point, angle, length, width, colour):
+    point = initial_point
+    for _ in range(angles_quantity - 1):
+        side = sd.get_vector(start_point=point, angle=angle, length=length)
+        side.draw(color=[212, 93, 225], width=1)
+        point = side.end_point
+        angle = angle + (360 / angles_quantity)
+    sd.line(side.end_point, end_point=initial_point, color=[212, 93, 225], width=1)
 
 def draw_triangle(initial_point, angle, side_length):
-    point = initial_point
-    angle = angle
-    for _ in range(4):
-        side = sd.get_vector(start_point=point, angle=angle, length=side_length)
-        side.draw(color=[212,93,225], width=5)
-        point = side.end_point
-        angle = angle + 120
-
-
-
+    angles_quantity = 3
+    draw_polygon(angles_quantity, initial_point, angle, length, 3, [212, 93, 225])
 
 def draw_square(initial_point, angle, side_length):
-    point = initial_point
-    angle = angle
-    for _ in range(5):
-        side = sd.get_vector(start_point=point, angle=angle, length=side_length)
-        side.draw(color=[212, 93, 225], width=5)
-        point = side.end_point
-        angle = angle + 90
+    angles_quantity = 4
+    draw_polygon(angles_quantity, initial_point, angle, length, 3, [212, 93, 225])
 
 def draw_pentagon(initial_point, angle, side_length):
-    point = initial_point
-    angle = angle
-    for _ in range(6):
-        side = sd.get_vector(start_point=point, angle=angle, length=side_length)
-        side.draw(color=[212, 93, 225], width=5)
-        point = side.end_point
-        angle = angle + 72
+    angles_quantity = 5
+    draw_polygon(angles_quantity, initial_point, angle, length, 3, [212, 93, 225])
 
 def draw_hexagon(initial_point, angle, side_length):
-    point = initial_point
-    angle = angle
-    for _ in range(7):
-        side = sd.get_vector(start_point=point, angle=angle, length=side_length)
-        side.draw(color=[212, 93, 225], width=5)
-        point = side.end_point
-        angle = angle + 60
+    angles_quantity = 6
+    draw_polygon(angles_quantity, initial_point, angle, length, 3, [212, 93, 225])
+
+def draw_septagon(initial_point, angle, side_length):
+    angles_quantity = 7
+    draw_polygon(angles_quantity, initial_point, angle, length, 3, [212, 93, 225])
 
 x = int(input('Введите координату x начальной точки (лучше не с краю, чтобы фигура поместилась): '))
 y = int(input('Введите координату y начальной точки: '))
@@ -85,6 +74,7 @@ draw_triangle(point, angle, length)
 draw_square(point, angle, length)
 draw_pentagon(point, angle, length)
 draw_hexagon(point,angle, length)
+draw_septagon(point, angle, length)
 
 # Часть 1-бис.
 # Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
