@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
+import math
 
 # Запросить у пользователя желаемую фигуру посредством выбора из существующих
 #   вывести список всех фигур с номерами и ждать ввода номера желаемой фигуры.
@@ -21,7 +22,8 @@ def draw_polygon(angles_quantity, initial_point, angle, length, width, colour):
 angle_quantity = int(input('Сколько углов у фигуры, которую Вы хотите нарисовать? '))
 length = int(input('Введите длину стороны фигуры: '))
 x = (sd.resolution[0] - length) / 2
-y = (sd.resolution[1] - length * (angle_quantity / 4)) / 2
+delta_y = (length / (2 * math.sin(math.pi / angle_quantity))) * 2
+y = (sd.resolution[1] - int(delta_y)) / 2
 point = sd.get_point(x, y)
 print('''Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:
 1. Желтый
