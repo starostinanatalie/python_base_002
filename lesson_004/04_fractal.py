@@ -2,6 +2,7 @@
 
 import simple_draw as sd
 
+
 # 1) Написать функцию draw_branches, которая должна рисовать две ветви дерева из начальной точки
 # Функция должна принимать параметры:
 # - точка начала рисования,
@@ -39,18 +40,20 @@ def draw_branches(initial_point, angle, branch_length):
     draw_branches(left_branch.end_point, angle_left, branch_length)
     draw_branches(right_branch.end_point, angle_right, branch_length)
 
-root_point = sd.get_point(300,0)
+
+root_point = sd.get_point(300, 0)
 root = sd.get_vector(root_point, 90, 30)
 root.draw()
 draw_branches(root.end_point, 90, 100)
 
-sd.sleep(5)
+sd.sleep(51)
 sd.clear_screen()
+
 
 def draw_branches_advanced(initial_point, angle, branch_length):
     if branch_length < 10:
         return
-    delta_angle = sd.random_number(30 - 30*0.4, 30 + 30*0.4)
+    delta_angle = sd.random_number(30 - 30 * 0.4, 30 + 30 * 0.4)
     angle_left = angle - delta_angle
     angle_right = angle + delta_angle
     left_branch = sd.get_vector(start_point=initial_point, angle=angle_left, length=branch_length)
@@ -62,11 +65,11 @@ def draw_branches_advanced(initial_point, angle, branch_length):
     draw_branches_advanced(left_branch.end_point, angle_left, branch_length)
     draw_branches_advanced(right_branch.end_point, angle_right, branch_length)
 
-root_point = sd.get_point(300,0)
+
+root_point = sd.get_point(300, 0)
 root = sd.get_vector(root_point, 90, 30)
 root.draw()
 draw_branches_advanced(root.end_point, 90, 100)
-
 
 # 4) Усложненное задание (делать по желанию)
 # - сделать рандомное отклонение угла ветвей в пределах 40% от 30-ти градусов
@@ -77,3 +80,5 @@ draw_branches_advanced(root.end_point, 90, 100)
 # sd.random_number()
 
 sd.pause()
+
+# зачет!

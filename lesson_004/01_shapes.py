@@ -70,9 +70,11 @@ y = int(input('Введите координату y начальной точк
 point = sd.get_point(x, y)
 angle = int(input('Введите угол наклона всей фигуры: '))
 length = int(input('Введите длину стороны фигуры: '))
-draw_triangle(point, angle, length)
-draw_square(point, angle, length)
-draw_pentagon(point, angle, length)
+
+# TODO: почему длина игнорируется?
+draw_triangle(point, angle, 100)
+draw_square(point, angle, 200)
+draw_pentagon(point, angle, 300)
 draw_hexagon(point,angle, length)
 draw_septagon(point, angle, length)
 
@@ -101,3 +103,5 @@ draw_septagon(point, angle, length)
 
 
 sd.pause()
+
+# почти
