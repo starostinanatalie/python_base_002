@@ -11,36 +11,70 @@ sd.resolution = (1200, 600)
 
 N = 20
 
-
-snowflakes = [{'x': sd.random_number(10, 1100), 'y': sd.random_number(500, 550),
+def draw_snowflakes():
+    snowflakes = [{'x': sd.random_number(10, 1100), 'y': sd.random_number(500, 550),
                'length': sd.random_number(10, 100), 'factor_a': sd.random_number(1, 10) * 0.1,
                'factor_b': sd.random_number(1, 10) * 0.1, 'factor_c': sd.random_number(40, 80)} for n in range(N)]
 
-# Пригодятся функции
-# sd.get_point()
-# sd.snowflake()
-# sd.sleep()
-# sd.random_number()
-# sd.user_want_exit()
+    delta_x = 0
+    delta_y = 0
+    while True:
+        sd.clear_screen()
 
-delta_x = 0
-delta_y = 0
-while True:
-    sd.clear_screen()
-
-    for snowflake in snowflakes:
-        delta_random = sd.random_number(-70, 10)
-        x = snowflake['x'] + delta_x + delta_random
-        y = snowflake['y'] + delta_y + (snowflake['length'] * 10)
-        point = sd.get_point(x, y)
-        sd.snowflake(point, snowflake['length'], sd.COLOR_WHITE, snowflake['factor_a'],
+        for snowflake in snowflakes:
+            delta_random = sd.random_number(-70, 10)
+            delta_determine = 10 / snowflake['length']
+            x = snowflake['x'] + delta_x + delta_random
+            y = snowflake['y'] + delta_y * delta_determine
+            point = sd.get_point(x, y)
+            sd.snowflake(point, snowflake['length'], sd.COLOR_WHITE, snowflake['factor_a'],
                      snowflake['factor_b'], snowflake['factor_c'])
-    sd.sleep(0.1)
+        sd.sleep(0.1)
 
-    delta_y -= 10
-    delta_x += 2
-    if sd.user_want_exit():
-        break
+        delta_y -= 10
+        delta_x += 2
+        if sd.user_want_exit():
+           break
+
+
+
+def draw_snowflakes_advanced():
+    snowflakes_advanced = [{'x': sd.random_number(10, 1100), 'y': sd.random_number(500, 550),
+               'length': sd.random_number(10, 40), 'factor_a': sd.random_number(2, 10) * 0.1,
+               'factor_b': sd.random_number(3, 10) * 0.1, 'factor_c': sd.random_number(40, 70)} for n in range(N)]
+
+    delta_x = 0
+    delta_y = 0
+    while True:
+        delta_random = [sd.random_number(-30,10) for n in range(len(snowflakes_advanced))]
+        sd.start_drawing()
+        for i, snowflake in enumerate(snowflakes_advanced):
+            delta_determine = 10 / snowflake['length']
+            x = snowflake['x'] + delta_x + delta_random[i]
+            y = snowflake['y'] + delta_y * delta_determine
+            point = sd.get_point(x, y)
+            sd.snowflake(point, snowflake['length'], sd.COLOR_WHITE, snowflake['factor_a'],
+                     snowflake['factor_b'], snowflake['factor_c'])
+        sd.finish_drawing()
+        sd.sleep(0.1)
+        sd.start_drawing()
+        for i, snowflake in enumerate(snowflakes_advanced):
+            delta_determine = 10 / snowflake['length']
+            x = snowflake['x'] + delta_x + delta_random[i]
+            y = snowflake['y'] + delta_y * delta_determine
+            if y < 5 + snowflake['length']:
+                continue
+            point = sd.get_point(x, y)
+            sd.snowflake(point, snowflake['length'], sd.background_color, snowflake['factor_a'],
+                     snowflake['factor_b'], snowflake['factor_c'])
+        sd.finish_drawing()
+        delta_y -= 10
+        delta_x += 5
+        if sd.user_want_exit():
+           break
+
+#draw_snowflakes()
+draw_snowflakes_advanced()
 sd.pause()
 
 # Примерный алгоритм отрисовки снежинок
