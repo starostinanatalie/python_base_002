@@ -11,20 +11,10 @@ sd.resolution = (1200, 600)
 
 N = 20
 
-# TODO: удобнее будет создать 1 список, который будет хранить N маленьких словарей.
-#  Каждый словарик будет иметь 3 ключа: 'x', 'y', 'length'.
-#  .
-#  Например, чтобы обратиться к значению 'Y' у 10ой снежинке можно будет использовать:
-#       snowflakes[9]['y'] -= 10
-#  .
-#  Преимущество в том, что мы можем обходить 1 список в цикле, и обращаться к его элементам, как к объектам-снежинкам,
-#  при этом удачно подобранные имена ключей 'x', 'y' сохраняют читабельность кода.
-snowflakes = [[[n + sd.random_number(10, 1100), n + sd.random_number(500, 550)], sd.random_number(10, 100),
-               sd.random_number(1, 10) * 0.1, sd.random_number(1, 10) * 0.1, sd.random_number(40, 80)]
-              for n in range(N)]
-for i in range(N):
-    point = sd.get_point(snowflakes[i][0][0], snowflakes[i][0][1])
-    sd.snowflake(point, snowflakes[i][1], sd.COLOR_WHITE, snowflakes[i][2], snowflakes[i][3], snowflakes[i][4])
+
+snowflakes = [{'x': sd.random_number(10, 1100), 'y': sd.random_number(500, 550),
+               'length': sd.random_number(10, 100), 'factor_a': sd.random_number(1, 10) * 0.1,
+               'factor_b': sd.random_number(1, 10) * 0.1, 'factor_c': sd.random_number(40, 80)} for n in range(N)]
 
 # Пригодятся функции
 # sd.get_point()
@@ -38,33 +28,17 @@ delta_y = 0
 while True:
     sd.clear_screen()
 
-    # TODO: range() тут не обязателен
-    #  Здесь лучше будет использовать простой "цикл for". Пример:
-    #           data = ['a', 'b', 'c']
-    #  .
-    #           for index in range(len(data)):          # было
-    #               print(data[index])
-    #  .
-    #           for elem in data:                       # стало
-    #               print(elem)
-    #  .
-    for i in range(N):
-        delta = sd.random_number(-70, 10)
-        # TODO: из-за изменения структуры, мы здесь получим "snowflake['x'] += ..."
-        #  Что позволит сделает наш код читабельнее.
-        x = snowflakes[i][0][0] + delta_x + delta
-        y = snowflakes[i][0][1] + delta_y
+    for snowflake in snowflakes:
+        delta_random = sd.random_number(-70, 10)
+        x = snowflake['x'] + delta_x + delta_random
+        y = snowflake['y'] + delta_y + (snowflake['length'] * 10)
         point = sd.get_point(x, y)
-        sd.snowflake(point, snowflakes[i][1], sd.COLOR_WHITE, snowflakes[i][2], snowflakes[i][3], snowflakes[i][4])
+        sd.snowflake(point, snowflake['length'], sd.COLOR_WHITE, snowflake['factor_a'],
+                     snowflake['factor_b'], snowflake['factor_c'])
     sd.sleep(0.1)
 
-    # TODO: пусть координаты снежинок меняются (сейчас они неизменны и падают с одинаковой скоростью. Мы хотим сделать
-    #  чтобы снежинки были независимы друг от друга, и даже так: если снежинка большая - пусть падает медленнее.
-    #  Зажите скорость падения на размер снежинки).
     delta_y -= 10
-    if delta_y < -550:
-        break
-    delta_x += 10
+    delta_x += 2
     if sd.user_want_exit():
         break
 sd.pause()
