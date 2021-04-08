@@ -53,7 +53,7 @@ while choise > len(colours) + 1:
     choise = int(input("Введите номер выбранного цвета: "))
 
 colour = colours[choise - 1][1]
-print(choise)
+
 draw_polygon(angle_quantity,point, angle, length, 3, colour)
 
 sd.pause()

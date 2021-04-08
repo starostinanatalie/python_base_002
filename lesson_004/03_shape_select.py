@@ -34,36 +34,31 @@ delta_y = (length / (2 * math.sin(math.pi / angle_quantity))) * 2
 y = (sd.resolution[1] - int(delta_y)) / 2
 point = sd.get_point(x, y)
 
-# TODO: меню выводить с помощью цикла.
-print('''Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:
-1. Желтый
-2. Зеленый
-3. Красный
-4. Синий
-5. Сиреневый
-6. Голубой
-7. Оранжевый
-Введите номер выбранного цвета''')
-colours = [sd.COLOR_YELLOW, sd.COLOR_GREEN, sd.COLOR_RED, sd.COLOR_DARK_BLUE, sd.COLOR_CYAN, sd.COLOR_BLUE,
-                     sd.COLOR_ORANGE]
+colours = [("1. Желтый", sd.COLOR_YELLOW),
+           ("2. Зеленый", sd.COLOR_GREEN),
+           ("3. Красный", sd.COLOR_RED),
+           ("4. Синий", sd.COLOR_DARK_BLUE),
+           ("5. Сиреневый", sd.COLOR_CYAN),
+           ("6. Голубой", sd.COLOR_BLUE),
+           ("7. Оранжевый", sd.COLOR_ORANGE)
+           ]
 choise = 0
-# TODO: изменить условие. Оно создает список из 7 элементов. А если их 100?
-#  Зачем нам список из 100 элемента, и еще и сравнивать с каждым из них, если на нужно сранить только с последним?
-#  Примечание: "not in" будет последовательно сранивать с 1, с 2, ... с 100500. В то время как мы можем сразу
-#  сравнить choice < 100500
-while choise not in [1, 2, 3, 4, 5, 6, 7]:
+print("Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:")
+for i in colours:
+    print(i[0])
+choise = int(input("Введите номер выбранного цвета: "))
+
+
+while choise > len(colours) + 1:
     print('Вы ввели некорректное значение')
-    choise = int(input('''Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:
-    1. Желтый
-    2. Зеленый
-    3. Красный
-    4. Синий
-    5. Сиреневый
-    6. Голубой
-    7. Оранжевый
-    Введите номер выбранного цвета: ''')) - 1
-colour = colours[choise]
-draw_polygon(angle_quantity,point, 0, length, 3, colour)
+    print("Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:")
+    for i in colours:
+        print(i[0])
+    choise = int(input("Введите номер выбранного цвета: "))
+
+colour = colours[choise - 1][1]
+print(choise)
+draw_polygon(angle_quantity,point, angle, length, 3, colour)
 
 
 sd.pause()
