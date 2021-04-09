@@ -103,4 +103,4 @@ draw_septagon(point, angle, length)
 
 sd.pause()
 
-# почти
+# зачет!

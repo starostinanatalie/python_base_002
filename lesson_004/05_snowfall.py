@@ -12,6 +12,7 @@ sd.resolution = (1200, 600)
 N = 20
 
 def draw_snowflakes():
+    # TODO: если списковое включение занимает больше 2 строк, стоит задуматься "а не сделать ли полноценный список?"
     snowflakes = [{'x': sd.random_number(10, 1100), 'y': sd.random_number(500, 550),
                'length': sd.random_number(10, 100), 'factor_a': sd.random_number(1, 10) * 0.1,
                'factor_b': sd.random_number(1, 10) * 0.1, 'factor_c': sd.random_number(40, 80)} for n in range(N)]
@@ -28,7 +29,7 @@ def draw_snowflakes():
             y = snowflake['y'] + delta_y * delta_determine
             point = sd.get_point(x, y)
             sd.snowflake(point, snowflake['length'], sd.COLOR_WHITE, snowflake['factor_a'],
-                     snowflake['factor_b'], snowflake['factor_c'])
+                         snowflake['factor_b'], snowflake['factor_c'])
         sd.sleep(0.1)
 
         delta_y -= 10
@@ -46,6 +47,11 @@ def draw_snowflakes_advanced():
     delta_x = 0
     delta_y = 0
     while True:
+        # TODO: Надо упростить.
+        #  Тут точно такой же алгоритм как и выше, отличие только в одном:
+        #   "sd.clear_screen()" будет заменен на отдельный цикл, задача которого - покрасить все снежинки цветом
+        #   фона. Этот новый цикл не должен ничего знать от delta_random и не должен ничего никуда перемешать.
+        #   Перемещением будет заниматься цикл ниже. Тогда код значительно упростится
         delta_random = [sd.random_number(-30,10) for n in range(len(snowflakes_advanced))]
         sd.start_drawing()
         for i, snowflake in enumerate(snowflakes_advanced):
@@ -62,6 +68,8 @@ def draw_snowflakes_advanced():
             delta_determine = 10 / snowflake['length']
             x = snowflake['x'] + delta_x + delta_random[i]
             y = snowflake['y'] + delta_y * delta_determine
+
+            # TODO: y-координаты упавших снежинок нужно менять на новые. Т.о. снегопад не дожлен кончаться.
             if y < 5 + snowflake['length']:
                 continue
             point = sd.get_point(x, y)

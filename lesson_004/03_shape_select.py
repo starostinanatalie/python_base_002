@@ -49,6 +49,8 @@ def draw_septagon(initial_point, angle, side_length):
 
 side_length = int(input('Введите длину стороны фигуры: '))
 
+# TODO: тот же набор правок, что и в 02 задаче.
+#  Можно по умолчанию задать 1 цвет, чтобы упростить себе жизнь.
 colours = [("1. Желтый", sd.COLOR_YELLOW),
            ("2. Зеленый", sd.COLOR_GREEN),
            ("3. Красный", sd.COLOR_RED),
@@ -75,12 +77,40 @@ colour = colours[choise_colour - 1][1]
 
 point = sd.get_point(100,100)
 
+# TODO: справа находятся ВЫЗОВЫ функции, а не сами функции.
 polygons = [("1. Треугольник", draw_triangle(point, 0, side_length)),
            ("2. Квадрат", draw_square(point, 0, side_length)),
            ("3. Пятиугольник", draw_pentagon(point, 0, side_length)),
            ("4. Шестиугольник", draw_hexagon(point, 0, side_length)),
            ("5. Семиугольник", draw_septagon(point, 0, side_length)),
            ]
+# TODO: Пример
+#   ################################ СОЗДАЕМ 2 ФУНКЦИИ
+#   #
+#       def calculate_sum(a, b):
+#           return a + b
+#   #
+#       def calculate_div(a, b):
+#           return a / b
+#   #
+#   #
+#   ################################ УПАКОВЫВАЕМ ИХ В СЛОВАРЬ И В СПИСОК
+#       dict_of_fun = {
+#           'sum': calculate_sum,
+#           'div': calculate_div
+#       }
+#       list_of_fun = [calculate_sum, calculate_div]        # ВНИМАНИЕ: это именно функции, их имена, а не их вызовы
+#   #
+#   #
+#   ################################ ОБРАЩАЕМСЯ К ФУНКЦИЯМ ЧЕРЕЗ ИНДЕКСЫ И КЛЮЧИ
+#   #
+#       print(dict_of_fun['sum'](100, 500))     # dict_of_fun['sum'] - по факту это calculate_sum, которому мы
+#       print(list_of_fun[0](100, 500))         # передаем 2 аргумента 100 и 500 (в результат выведет 600)
+#   #
+#       print(dict_of_fun['div'](100, 500))     # 0.2
+#       print(list_of_fun[1](100, 500))         # 0.2
+#   .
+#   Таким образом мы сможем избавиться от 4 if`ов внутри цикла.
 
 print("Выберите фигуру, которую Вы хотите нарисовать, из предложенных:")
 for item in polygons:
