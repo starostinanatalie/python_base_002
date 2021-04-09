@@ -39,97 +39,57 @@ def draw_septagon(initial_point, angle, side_length):
     angles_quantity = 7
     draw_polygon(angles_quantity, initial_point, angle, side_length, 3, colour)
 
-# TODO: нужно все функции. Прямо использовать draw_pylygon нельзя.
-
-# TODO: зачем 4 функции, когда можно использовать 1, которая умеет все это делать и даже может больше?
-#  Цель этой задачи решить проблему "выбор 1 функции из набора функций" без 100500 if|else. Нужно будет создать список
-#  функций, ожидать какой цвет и какую функцию выберет пользователь и использовать его выбор в качестве индекс по списку
-#  .
-#  Т.е. цель введенного ограничения: понять, что функции можно хранить/передавать как и другие объекты.
-
 side_length = int(input('Введите длину стороны фигуры: '))
 
-# TODO: тот же набор правок, что и в 02 задаче.
-#  Можно по умолчанию задать 1 цвет, чтобы упростить себе жизнь.
-colours = [("1. Желтый", sd.COLOR_YELLOW),
-           ("2. Зеленый", sd.COLOR_GREEN),
-           ("3. Красный", sd.COLOR_RED),
-           ("4. Синий", sd.COLOR_DARK_BLUE),
-           ("5. Сиреневый", sd.COLOR_CYAN),
-           ("6. Голубой", sd.COLOR_BLUE),
-           ("7. Оранжевый", sd.COLOR_ORANGE)
+colours = [("Желтый", sd.COLOR_YELLOW),
+           ("Зеленый", sd.COLOR_GREEN),
+           ("Красный", sd.COLOR_RED),
+           ("Синий", sd.COLOR_DARK_BLUE),
+           ("Сиреневый", sd.COLOR_CYAN),
+           ("Голубой", sd.COLOR_BLUE),
+           ("Оранжевый", sd.COLOR_ORANGE)
            ]
 choise_colour = 0
-print("Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:")
-for i in colours:
-    print(i[0])
-choise_colour = int(input("Введите номер выбранного цвета: "))
 
-
-while choise_colour > len(colours) + 1:
-    print('Вы ввели некорректное значение')
+while True:
     print("Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:")
-    for i in colours:
-        print(i[0])
+    for i, colour in enumerate(colours):
+        print(i + 1, colour[0])
     choise_colour = int(input("Введите номер выбранного цвета: "))
-
+    if choise_colour > len(colours) + 1:
+        print('Вы ввели некорректное значение')
+    else:
+        break
 colour = colours[choise_colour - 1][1]
 
 point = sd.get_point(100,100)
 
-# TODO: справа находятся ВЫЗОВЫ функции, а не сами функции.
-polygons = [("1. Треугольник", draw_triangle(point, 0, side_length)),
-           ("2. Квадрат", draw_square(point, 0, side_length)),
-           ("3. Пятиугольник", draw_pentagon(point, 0, side_length)),
-           ("4. Шестиугольник", draw_hexagon(point, 0, side_length)),
-           ("5. Семиугольник", draw_septagon(point, 0, side_length)),
+polygons = [("Треугольник", draw_triangle),
+           ("Квадрат", draw_square),
+           ("Пятиугольник", draw_pentagon),
+           ("Шестиугольник", draw_hexagon),
+           ("Семиугольник", draw_septagon),
            ]
-# TODO: Пример
-#   ################################ СОЗДАЕМ 2 ФУНКЦИИ
-#   #
-#       def calculate_sum(a, b):
-#           return a + b
-#   #
-#       def calculate_div(a, b):
-#           return a / b
-#   #
-#   #
-#   ################################ УПАКОВЫВАЕМ ИХ В СЛОВАРЬ И В СПИСОК
-#       dict_of_fun = {
-#           'sum': calculate_sum,
-#           'div': calculate_div
-#       }
-#       list_of_fun = [calculate_sum, calculate_div]        # ВНИМАНИЕ: это именно функции, их имена, а не их вызовы
-#   #
-#   #
-#   ################################ ОБРАЩАЕМСЯ К ФУНКЦИЯМ ЧЕРЕЗ ИНДЕКСЫ И КЛЮЧИ
-#   #
-#       print(dict_of_fun['sum'](100, 500))     # dict_of_fun['sum'] - по факту это calculate_sum, которому мы
-#       print(list_of_fun[0](100, 500))         # передаем 2 аргумента 100 и 500 (в результат выведет 600)
-#   #
-#       print(dict_of_fun['div'](100, 500))     # 0.2
-#       print(list_of_fun[1](100, 500))         # 0.2
-#   .
-#   Таким образом мы сможем избавиться от 4 if`ов внутри цикла.
 
-print("Выберите фигуру, которую Вы хотите нарисовать, из предложенных:")
-for item in polygons:
-    print(item[0])
-choise_figure = int(input("Введите номер выбранной фигуры: "))
+# (Natalie Starostina) Спасибо!!! Про функции поняла, очень классно!
 
-while choise_figure > len(colours) + 1:
-    print('Вы ввели некорректное значение')
-    print("Выберите фигуру, которую Вы хотите нарисовать, из предложенных:")
-    for i in colours:
-        print(i[0])
-    choise_figure = int(input("Введите номер выбранной фигуры: "))
+choise_figure = 0
+
+while True:
+    print("Выберите фигуру, которую Вы хотите нарисовать, из предложенных: ")
+    for i, figure in enumerate(polygons):
+        print(i + 1, figure[0])
+    choise_figure = int(input("Введите номер выбранного цвета: "))
+    if choise_figure > len(polygons) + 1:
+        print('Вы ввели некорректное значение')
+    else:
+        break
 
 x = (sd.resolution[0] - side_length) / 2
 delta_y = (side_length / (2 * math.sin(math.pi / (choise_figure + 2)))) * 2
 y = (sd.resolution[1] - int(delta_y)) / 2
 point = sd.get_point(x, y)
 
-print(choise_figure)
-print(type(polygons[choise_figure - 1][1]))
+polygons[choise_figure - 1][1](point, 0, side_length)
 
 sd.pause()
