@@ -70,14 +70,16 @@ def draw_snowflakes_advanced():
             sd.snowflake(point, snowflake['length'], snowflake['colour'], snowflake['factor_a'],
                              snowflake['factor_b'], snowflake['factor_c'])
         sd.finish_drawing()
-        delta_y -= 7
         delta_x += 1
+        if delta_x > 20:
+            delta_x = 10
+        delta_y -= 7
         for snowflake in snowflakes_advanced:
-            snowflake['x'] = snowflake['x'] + delta_x + sd.random_number(-30, 0)
+            snowflake['x'] = snowflake['x'] + delta_x + sd.random_number(-10, 0)
             snowflake['y'] = snowflake['y'] + delta_y * (1 / snowflake['length'])
             if snowflake['y'] < 5:
                 snowflake['y'] = sd.random_number(550,600)
-                snowflake['x'] = sd.random_number(10, 500)
+                snowflake['x'] = sd.random_number(10, 1000)
         if sd.user_want_exit():
            break
 
