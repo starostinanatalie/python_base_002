@@ -12,16 +12,17 @@ sd.resolution = (1200, 600)
 N = 20
 
 def draw_snowflakes():
-    # TODO: если списковое включение занимает больше 2 строк, стоит задуматься "а не сделать ли полноценный список?"
-    snowflakes = [{'x': sd.random_number(10, 1100), 'y': sd.random_number(500, 550),
-               'length': sd.random_number(10, 100), 'factor_a': sd.random_number(1, 10) * 0.1,
-               'factor_b': sd.random_number(1, 10) * 0.1, 'factor_c': sd.random_number(40, 80)} for n in range(N)]
-
+    snowflakes = [{'x': sd.random_number(10, 1100),
+             'y': sd.random_number(500, 550),
+             'length': sd.random_number(10, 100),
+             'factor_a': sd.random_number(1, 10) * 0.1,
+             'factor_b': sd.random_number(1, 10) * 0.1,
+             'factor_c': sd.random_number(40, 80)
+             } for n in range(N)]
     delta_x = 0
     delta_y = 0
     while True:
         sd.clear_screen()
-
         for snowflake in snowflakes:
             delta_random = sd.random_number(-70, 10)
             delta_determine = 10 / snowflake['length']
@@ -31,7 +32,6 @@ def draw_snowflakes():
             sd.snowflake(point, snowflake['length'], sd.COLOR_WHITE, snowflake['factor_a'],
                          snowflake['factor_b'], snowflake['factor_c'])
         sd.sleep(0.1)
-
         delta_y -= 10
         delta_x += 2
         if sd.user_want_exit():
@@ -40,10 +40,14 @@ def draw_snowflakes():
 
 
 def draw_snowflakes_advanced():
-    snowflakes_advanced = [{'x': sd.random_number(10, 1100), 'y': sd.random_number(500, 550),
-               'length': sd.random_number(10, 40), 'factor_a': sd.random_number(2, 10) * 0.1,
-               'factor_b': sd.random_number(3, 10) * 0.1, 'factor_c': sd.random_number(40, 70)} for n in range(N)]
-
+    snowflakes_advanced = [{'x': sd.random_number(10, 1100),
+             'y': sd.random_number(500, 550),
+             'length': sd.random_number(10, 30),
+             'factor_a': sd.random_number(1, 10) * 0.1,
+             'factor_b': sd.random_number(1, 10) * 0.1,
+             'factor_c': sd.random_number(40, 70),
+             'colour': sd.COLOR_WHITE
+             } for n in range(N)]
     delta_x = 0
     delta_y = 0
     while True:
@@ -59,16 +63,17 @@ def draw_snowflakes_advanced():
             x = snowflake['x'] + delta_x + delta_random[i]
             y = snowflake['y'] + delta_y * delta_determine
             point = sd.get_point(x, y)
-            sd.snowflake(point, snowflake['length'], sd.COLOR_WHITE, snowflake['factor_a'],
+            sd.snowflake(point, snowflake['length'], snowflake['colour'], snowflake['factor_a'],
                      snowflake['factor_b'], snowflake['factor_c'])
         sd.finish_drawing()
         sd.sleep(0.1)
         sd.start_drawing()
+
+
         for i, snowflake in enumerate(snowflakes_advanced):
             delta_determine = 10 / snowflake['length']
             x = snowflake['x'] + delta_x + delta_random[i]
             y = snowflake['y'] + delta_y * delta_determine
-
             # TODO: y-координаты упавших снежинок нужно менять на новые. Т.о. снегопад не дожлен кончаться.
             if y < 5 + snowflake['length']:
                 continue
@@ -77,11 +82,12 @@ def draw_snowflakes_advanced():
                      snowflake['factor_b'], snowflake['factor_c'])
         sd.finish_drawing()
         delta_y -= 10
-        delta_x += 5
+        delta_x += 2
+        print(len(snowflakes_advanced))
         if sd.user_want_exit():
            break
 
-#draw_snowflakes()
+#raw_snowflakes()
 draw_snowflakes_advanced()
 sd.pause()
 
