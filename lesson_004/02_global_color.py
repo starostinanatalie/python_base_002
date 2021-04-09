@@ -30,37 +30,34 @@ point = sd.get_point(x, y)
 angle = int(input('Введите угол наклона всей фигуры: '))
 length = int(input('Введите длину стороны фигуры: '))
 
-# TODO: цифры стоит убрать.
-colours = [("1. Желтый", sd.COLOR_YELLOW),
-           ("2. Зеленый", sd.COLOR_GREEN),
-           ("3. Красный", sd.COLOR_RED),
-           ("4. Синий", sd.COLOR_DARK_BLUE),
-           ("5. Сиреневый", sd.COLOR_CYAN),
-           ("6. Голубой", sd.COLOR_BLUE),
-           ("7. Оранжевый", sd.COLOR_ORANGE)
+colours = [("Желтый", sd.COLOR_YELLOW),
+           ("Зеленый", sd.COLOR_GREEN),
+           ("Красный", sd.COLOR_RED),
+           ("Синий", sd.COLOR_DARK_BLUE),
+           ("Сиреневый", sd.COLOR_CYAN),
+           ("Голубой", sd.COLOR_BLUE),
+           ("Оранжевый", sd.COLOR_ORANGE)
            ]
 
-# TODO: пусть номер цвета добавляется в цикле. Иначе при добавлении цветов в начало или в середину - придется вручную
-#  менять цвета.
 choise = 0
 print("Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:")
-# TODO: i можно "распаковать" в 2 переменных: название_цвета и сам цвет.
+
 #  Мы так делали в 03 модуле в задаче 05_store. Пример:
 #   for good, part_number in goods.items():
 #  .
 #  goods.items() - это был список из кортежей. Прям как у нас.
-for i in colours:
-    print(i[0])
-choise = int(input("Введите номер выбранного цвета: "))
 
+# (Natalie Starostina) в третьем модуле goods был словарем, а у списка метода .items() нет.
 
-while choise > len(colours) + 1:
-    print('Вы ввели некорректное значение')
+while True:
     print("Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:")
-    # TODO: подумайте: можно ли как-то организовать код так, чтобы вывод меню был только в цикле?
-    for i in colours:
-        print(i[0])
+    for i, colour in enumerate(colours):
+        print(i + 1, colour[0])
     choise = int(input("Введите номер выбранного цвета: "))
+    if choise > len(colours) + 1:
+        print('Вы ввели некорректное значение')
+    else:
+        break
 
 colour = colours[choise - 1][1]
 
