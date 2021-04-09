@@ -41,7 +41,7 @@ def draw_snowflakes():
 
 def draw_snowflakes_advanced():
     snowflakes_advanced = [{'x': sd.random_number(10, 1100),
-             'y': sd.random_number(500, 550),
+             'y': sd.random_number(550, 600),
              'length': sd.random_number(10, 30),
              'factor_a': sd.random_number(1, 10) * 0.1,
              'factor_b': sd.random_number(1, 10) * 0.1,
@@ -51,39 +51,33 @@ def draw_snowflakes_advanced():
     delta_x = 0
     delta_y = 0
     while True:
-        # TODO: Надо упростить.
-        #  Тут точно такой же алгоритм как и выше, отличие только в одном:
-        #   "sd.clear_screen()" будет заменен на отдельный цикл, задача которого - покрасить все снежинки цветом
-        #   фона. Этот новый цикл не должен ничего знать от delta_random и не должен ничего никуда перемешать.
-        #   Перемещением будет заниматься цикл ниже. Тогда код значительно упростится
-        delta_random = [sd.random_number(-30,10) for n in range(len(snowflakes_advanced))]
         sd.start_drawing()
-        for i, snowflake in enumerate(snowflakes_advanced):
-            delta_determine = 10 / snowflake['length']
-            x = snowflake['x'] + delta_x + delta_random[i]
-            y = snowflake['y'] + delta_y * delta_determine
-            point = sd.get_point(x, y)
+        for snowflake in snowflakes_advanced:
+            point = sd.get_point(snowflake['x'], snowflake['y'])
+            snowflake['colour'] = sd.COLOR_WHITE
             sd.snowflake(point, snowflake['length'], snowflake['colour'], snowflake['factor_a'],
-                     snowflake['factor_b'], snowflake['factor_c'])
+                             snowflake['factor_b'], snowflake['factor_c'])
         sd.finish_drawing()
         sd.sleep(0.1)
         sd.start_drawing()
-
-
-        for i, snowflake in enumerate(snowflakes_advanced):
-            delta_determine = 10 / snowflake['length']
-            x = snowflake['x'] + delta_x + delta_random[i]
-            y = snowflake['y'] + delta_y * delta_determine
-            # TODO: y-координаты упавших снежинок нужно менять на новые. Т.о. снегопад не дожлен кончаться.
-            if y < 5 + snowflake['length']:
-                continue
-            point = sd.get_point(x, y)
-            sd.snowflake(point, snowflake['length'], sd.background_color, snowflake['factor_a'],
-                     snowflake['factor_b'], snowflake['factor_c'])
+        for snowflake in snowflakes_advanced:
+            y = snowflake['y']
+            point = sd.get_point(snowflake['x'], y)
+            if y < 20:
+                snowflake['colour'] = sd.COLOR_WHITE
+            else:
+                snowflake['colour'] = sd.background_color
+            sd.snowflake(point, snowflake['length'], snowflake['colour'], snowflake['factor_a'],
+                             snowflake['factor_b'], snowflake['factor_c'])
         sd.finish_drawing()
-        delta_y -= 10
-        delta_x += 2
-        print(len(snowflakes_advanced))
+        delta_y -= 7
+        delta_x += 1
+        for snowflake in snowflakes_advanced:
+            snowflake['x'] = snowflake['x'] + delta_x + sd.random_number(-30, 0)
+            snowflake['y'] = snowflake['y'] + delta_y * (1 / snowflake['length'])
+            if snowflake['y'] < 5:
+                snowflake['y'] = sd.random_number(550,600)
+                snowflake['x'] = sd.random_number(10, 500)
         if sd.user_want_exit():
            break
 
