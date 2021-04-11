@@ -73,17 +73,24 @@ polygons = [("Треугольник", draw_triangle),
 
 # (Natalie Starostina) Спасибо!!! Про функции поняла, очень классно!
 
+# TODO: рад помочь) Так конечно сделать, используя только draw_polygon логично, но нам нужен был этот крюк с
+#  4мя функциями, чтоб понят: они тоже объекты, их можно даже внутри функции передать.
+
 choise_figure = 0
 
 while True:
     print("Выберите фигуру, которую Вы хотите нарисовать, из предложенных: ")
-    for i, figure in enumerate(polygons):
-        print(i + 1, figure[0])
+    # TODO: использовать сложный случай вложенной распаковки, как в примере в 02 задаче (на всякий пожарный, правильный
+    #  ответ в конце файла).
+    for i, figure in enumerate(polygons):   # TODO: если 2ым параметром в enumerate передадим, например, 100500, то i будет
+        print(i + 1, figure[0])             #  начинаться с 100500, а не с нуля. Можно использовать, чтобы +1 не делать.
     choise_figure = int(input("Введите номер выбранного цвета: "))
     if choise_figure > len(polygons) + 1:
         print('Вы ввели некорректное значение')
     else:
         break
+
+# TODO: такая же проблема с падением. вводим 6 и падаем.
 
 x = (sd.resolution[0] - side_length) / 2
 delta_y = (side_length / (2 * math.sin(math.pi / (choise_figure + 2)))) * 2
@@ -93,3 +100,15 @@ point = sd.get_point(x, y)
 polygons[choise_figure - 1][1](point, 0, side_length)
 
 sd.pause()
+
+
+
+
+
+
+
+
+
+
+
+# for i, (fig_name, fig_function) in enumerate(polygons):

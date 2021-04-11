@@ -46,6 +46,7 @@ def draw_snowflakes_advanced():
              'factor_a': sd.random_number(1, 10) * 0.1,
              'factor_b': sd.random_number(1, 10) * 0.1,
              'factor_c': sd.random_number(40, 70),
+            # TODO: 'colour' не нужен. Его можно заменить локальной переменной внутри каждого цикла.
              'colour': sd.COLOR_WHITE
              } for n in range(N)]
     delta_x = 0
@@ -54,15 +55,18 @@ def draw_snowflakes_advanced():
         sd.start_drawing()
         for snowflake in snowflakes_advanced:
             point = sd.get_point(snowflake['x'], snowflake['y'])
+            # TODO: убираем, и в sd.snowflake сразу пишем sd.COLOR_WHITE
             snowflake['colour'] = sd.COLOR_WHITE
             sd.snowflake(point, snowflake['length'], snowflake['colour'], snowflake['factor_a'],
                              snowflake['factor_b'], snowflake['factor_c'])
         sd.finish_drawing()
         sd.sleep(0.1)
         sd.start_drawing()
+        # TODO: Тут считаем delta_x и объединяем 2 цикл ниже.
         for snowflake in snowflakes_advanced:
             y = snowflake['y']
             point = sd.get_point(snowflake['x'], y)
+            # TODO: аналогично и тут
             if y < 20:
                 snowflake['colour'] = sd.COLOR_WHITE
             else:
@@ -73,7 +77,14 @@ def draw_snowflakes_advanced():
         delta_x += 1
         if delta_x > 20:
             delta_x = 10
+        # TODO: "y" тоже надо ограничить. А то снегопад разгоняется до световых скоростей.
         delta_y -= 7
+
+        # TODO: используйте оператор %, чтобы не использовать if. Пример:
+        #  a = (a + 1) % 100        # "а" всегда меньше 100.
+
+
+        # TODO: этот цикл можно совместить с циклом выше, чтобы уменьшить количество кода.
         for snowflake in snowflakes_advanced:
             snowflake['x'] = snowflake['x'] + delta_x + sd.random_number(-10, 0)
             snowflake['y'] = snowflake['y'] + delta_y * (1 / snowflake['length'])
