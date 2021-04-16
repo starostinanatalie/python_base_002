@@ -53,10 +53,10 @@ choise_colour = 0
 
 while True:
     print("Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:")
-    for i, colour in enumerate(colours):
-        print(i + 1, colour[0])
+    for i, (name, colour) in enumerate(colours):
+        print(i + 1, name)
     choise_colour = int(input("Введите номер выбранного цвета: "))
-    if choise_colour > len(colours) + 1:
+    if choise_colour >= len(colours) + 1:
         print('Вы ввели некорректное значение')
     else:
         break
@@ -77,17 +77,14 @@ choise_figure = 0
 
 while True:
     print("Выберите фигуру, которую Вы хотите нарисовать, из предложенных: ")
-    # TODO: использовать сложный случай вложенной распаковки, как в примере в 02 задаче (на всякий пожарный, правильный
-    #  ответ в конце файла).
-    for i, figure in enumerate(polygons, 1):
-        print(i + 1, figure[0])
+    for i, (name, figure) in enumerate(polygons, 1):
+        print(i + 1, name)
         choise_figure = int(input("Введите номер выбранного цвета: "))
-    if choise_figure > len(polygons):
+    if choise_figure >= len(polygons):
         print('Вы ввели некорректное значение')
     else:
         break
 
-# TODO: такая же проблема с падением. вводим 6 и падаем.
 
 x = (sd.resolution[0] - side_length) / 2
 delta_y = (side_length / (2 * math.sin(math.pi / (choise_figure + 2)))) * 2
