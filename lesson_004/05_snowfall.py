@@ -58,28 +58,23 @@ def draw_snowflakes_advanced():
         sd.finish_drawing()
         sd.sleep(0.1)
         sd.start_drawing()
-        # TODO: Тут считаем delta_x и объединяем 2 цикл ниже.
+        delta_x = (delta_x + 5) % 10
+        delta_y = (delta_y - 10) % 50
         for snowflake in snowflakes_advanced:
             y = snowflake['y']
             point = sd.get_point(snowflake['x'], y)
-            # TODO: аналогично и тут
             if y < 20:
                 snowflake['colour'] = sd.COLOR_WHITE
             else:
                 snowflake['colour'] = sd.background_color
             sd.snowflake(point, snowflake['length'], snowflake['colour'], snowflake['factor_a'],
                              snowflake['factor_b'], snowflake['factor_c'])
-        sd.finish_drawing()
-        delta_x = (delta_x + 3) % 15
-        delta_y = (delta_y - 10) % 600
-
-        # TODO: этот цикл можно совместить с циклом выше, чтобы уменьшить количество кода.
-        for snowflake in snowflakes_advanced:
-            snowflake['x'] = snowflake['x'] + delta_x + sd.random_number(-10, 0)
+            snowflake['x'] = snowflake['x'] + delta_x + sd.random_number(-10, 5)
             snowflake['y'] = snowflake['y'] - delta_y * (1 / snowflake['length'])
             if snowflake['y'] < 5:
-                snowflake['y'] = sd.random_number(550,600)
+                snowflake['y'] = sd.random_number(550, 600)
                 snowflake['x'] = sd.random_number(10, 1000)
+        sd.finish_drawing()
         if sd.user_want_exit():
            break
 
