@@ -56,9 +56,7 @@ while True:
     for i, (name, colour) in enumerate(colours, 1):
         print(i, name)
     choise_colour = int(input("Введите номер выбранного цвета: "))
-
-
-    if 0 >= choise_colour >= len(colours) + 1:
+    if choise_colour >= len(colours) + 1 or choise_colour <= 0:
         print('Вы ввели некорректное значение')
     else:
         break
@@ -84,9 +82,7 @@ while True:
     for i, figure in enumerate(polygons, 1):
         print(i, figure[0])
     choise_figure = int(input("Введите номер выбранной фигуры: "))
-
-    # TODO: можно ввести 0 и программа упадет
-    if choise_figure >= len(polygons) + 1:
+    if choise_figure >= len(polygons) + 1 or choise_figure <= 0:
         print('Вы ввели некорректное значение')
     else:
         break
