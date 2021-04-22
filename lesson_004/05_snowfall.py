@@ -63,17 +63,8 @@ def draw_snowflakes_advanced():
         for snowflake in snowflakes_advanced:
             y = snowflake['y']
             point = sd.get_point(snowflake['x'], y)
-
-            # TODO: в целом, создавать ключ 'colour' нам не обязательно. Из-за строк ниже, в каждой снежинке
-            #  хранится цвет, значение которого все равно будет пересчитано в следующий раз, когда очередь
-            #  дойдет. Поэтому мы можем сделать простую переменню colour.
-            if y < 20:
-                snowflake['colour'] = sd.COLOR_WHITE
-            else:
-                snowflake['colour'] = sd.background_color
-            # TODO: и здесь ее сразу использовать.
-            #  Профит: на одно поле меньше у каждой снежинки!
-            sd.snowflake(point, snowflake['length'], snowflake['colour'], snowflake['factor_a'],
+            colour = sd.COLOR_WHITE if y < 10 else sd.background_color
+            sd.snowflake(point, snowflake['length'], colour, snowflake['factor_a'],
                          snowflake['factor_b'], snowflake['factor_c'])
             snowflake['x'] = snowflake['x'] + delta_x + sd.random_number(-10, 5)
             snowflake['y'] = snowflake['y'] - delta_y * (1 / snowflake['length'])
@@ -83,20 +74,6 @@ def draw_snowflakes_advanced():
         sd.finish_drawing()
         if sd.user_want_exit():
             break
-
-# TODO: дополнительно на счет if`а выше с colour.
-#  Если if|else нужен только для того, чтобы прибавить/отнять какое-то число от исходного, то
-#  можно использовать тернальный оператор if|else. Пример:
-#               if some_condition:
-#                   a = 100
-#               else:                       			 # было
-#                   a = 200.
-#  .
-#               a = 100 if some_condition else 200       # стало
-#  .              ↑  ↑                          ↑
-#  Аналогично и +=, *=, -=, /=:
-#               a *= 4 if some_condition_2 else 2        # если ДА - умножим в 4 раза, если НЕТ - в 2 раза
-#  .               ↑ ↑                          ↑
 
 
 
