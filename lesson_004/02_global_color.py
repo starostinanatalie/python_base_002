@@ -55,6 +55,8 @@ while True:
     for i, (name, colour) in enumerate(colours):
         print(i + 1, name)
     choise = int(input("Введите номер выбранного цвета: "))
+
+    # TODO: можно ввести -100 и программа упадет
     if choise >= len(colours) + 1:
         print('Вы ввели некорректное значение')
     else:
@@ -65,3 +67,5 @@ colour = colours[choise - 1][1]
 draw_polygon(angle_quantity,point, angle, length, 3, colour)
 
 sd.pause()
+
+# почти

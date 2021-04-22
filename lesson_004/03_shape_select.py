@@ -56,6 +56,8 @@ while True:
     for i, (name, colour) in enumerate(colours, 1):
         print(i, name)
     choise_colour = int(input("Введите номер выбранного цвета: "))
+
+    # TODO: можно ввести -100 и программа упадет
     if choise_colour >= len(colours) + 1:
         print('Вы ввели некорректное значение')
     else:
@@ -82,6 +84,8 @@ while True:
     for i, figure in enumerate(polygons, 1):
         print(i, figure[0])
     choise_figure = int(input("Введите номер выбранной фигуры: "))
+
+    # TODO: можно ввести 0 и программа упадет
     if choise_figure >= len(polygons) + 1:
         print('Вы ввели некорректное значение')
     else:
@@ -95,14 +99,4 @@ polygons[choise_figure - 1][1](point, 0, side_length, colour)
 
 sd.pause()
 
-
-
-
-
-
-
-
-
-
-
-# for i, (fig_name, fig_function) in enumerate(polygons):
+# почти

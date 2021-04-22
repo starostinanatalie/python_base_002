@@ -11,14 +11,15 @@ sd.resolution = (1200, 600)
 
 N = 20
 
+
 def draw_snowflakes():
     snowflakes = [{'x': sd.random_number(10, 1100),
-             'y': sd.random_number(500, 550),
-             'length': sd.random_number(10, 100),
-             'factor_a': sd.random_number(1, 10) * 0.1,
-             'factor_b': sd.random_number(1, 10) * 0.1,
-             'factor_c': sd.random_number(40, 80)
-             } for n in range(N)]
+                   'y': sd.random_number(500, 550),
+                   'length': sd.random_number(10, 100),
+                   'factor_a': sd.random_number(1, 10) * 0.1,
+                   'factor_b': sd.random_number(1, 10) * 0.1,
+                   'factor_c': sd.random_number(40, 80)
+                   } for n in range(N)]
     delta_x = 0
     delta_y = 0
     while True:
@@ -35,18 +36,17 @@ def draw_snowflakes():
         delta_y -= 10
         delta_x += 2
         if sd.user_want_exit():
-           break
-
+            break
 
 
 def draw_snowflakes_advanced():
     snowflakes_advanced = [{'x': sd.random_number(10, 1100),
-             'y': sd.random_number(550, 600),
-             'length': sd.random_number(10, 30),
-             'factor_a': sd.random_number(1, 10) * 0.1,
-             'factor_b': sd.random_number(1, 10) * 0.1,
-             'factor_c': sd.random_number(40, 70),
-             } for n in range(N)]
+                            'y': sd.random_number(550, 600),
+                            'length': sd.random_number(10, 30),
+                            'factor_a': sd.random_number(1, 10) * 0.1,
+                            'factor_b': sd.random_number(1, 10) * 0.1,
+                            'factor_c': sd.random_number(40, 70),
+                            } for n in range(N)]
     delta_x = 0
     delta_y = 0
     while True:
@@ -54,7 +54,7 @@ def draw_snowflakes_advanced():
         for snowflake in snowflakes_advanced:
             point = sd.get_point(snowflake['x'], snowflake['y'])
             sd.snowflake(point, snowflake['length'], sd.COLOR_WHITE, snowflake['factor_a'],
-                             snowflake['factor_b'], snowflake['factor_c'])
+                         snowflake['factor_b'], snowflake['factor_c'])
         sd.finish_drawing()
         sd.sleep(0.1)
         sd.start_drawing()
@@ -63,12 +63,18 @@ def draw_snowflakes_advanced():
         for snowflake in snowflakes_advanced:
             y = snowflake['y']
             point = sd.get_point(snowflake['x'], y)
+
+            # TODO: в целом, создавать ключ 'colour' нам не обязательно. Из-за строк ниже, в каждой снежинке
+            #  хранится цвет, значение которого все равно будет пересчитано в следующий раз, когда очередь
+            #  дойдет. Поэтому мы можем сделать простую переменню colour.
             if y < 20:
                 snowflake['colour'] = sd.COLOR_WHITE
             else:
                 snowflake['colour'] = sd.background_color
+            # TODO: и здесь ее сразу использовать.
+            #  Профит: на одно поле меньше у каждой снежинки!
             sd.snowflake(point, snowflake['length'], snowflake['colour'], snowflake['factor_a'],
-                             snowflake['factor_b'], snowflake['factor_c'])
+                         snowflake['factor_b'], snowflake['factor_c'])
             snowflake['x'] = snowflake['x'] + delta_x + sd.random_number(-10, 5)
             snowflake['y'] = snowflake['y'] - delta_y * (1 / snowflake['length'])
             if snowflake['y'] < 5:
@@ -76,9 +82,27 @@ def draw_snowflakes_advanced():
                 snowflake['x'] = sd.random_number(10, 1000)
         sd.finish_drawing()
         if sd.user_want_exit():
-           break
+            break
 
-#raw_snowflakes()
+# TODO: дополнительно на счет if`а выше с colour.
+#  Если if|else нужен только для того, чтобы прибавить/отнять какое-то число от исходного, то
+#  можно использовать тернальный оператор if|else. Пример:
+#               if some_condition:
+#                   a = 100
+#               else:                       			 # было
+#                   a = 200.
+#  .
+#               a = 100 if some_condition else 200       # стало
+#  .              ↑  ↑                          ↑
+#  Аналогично и +=, *=, -=, /=:
+#               a *= 4 if some_condition_2 else 2        # если ДА - умножим в 4 раза, если НЕТ - в 2 раза
+#  .               ↑ ↑                          ↑
+
+
+
+
+
+# raw_snowflakes()
 draw_snowflakes_advanced()
 sd.pause()
 
@@ -128,3 +152,5 @@ sd.pause()
 # - сделать сугоб внизу экрана - если снежинка долетает до низа, оставлять её там,
 #   и добавлять новую снежинку
 # Результат решения см https://youtu.be/XBx0JtxHiLg
+
+# почти
