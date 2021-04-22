@@ -40,7 +40,6 @@ colours = [("Желтый", sd.COLOR_YELLOW),
            ]
 
 choise = 0
-print("Выберите цвет, которым Вы хотите нарисовать фигуру, из предложенных:")
 
 #  Мы так делали в 03 модуле в задаче 05_store. Пример:
 #   for good, part_number in goods.items():
@@ -55,9 +54,7 @@ while True:
     for i, (name, colour) in enumerate(colours):
         print(i + 1, name)
     choise = int(input("Введите номер выбранного цвета: "))
-
-    # TODO: можно ввести -100 и программа упадет
-    if choise >= len(colours) + 1:
+    if choise >= len(colours) + 1 or choise <= 0:
         print('Вы ввели некорректное значение')
     else:
         break

@@ -57,8 +57,8 @@ while True:
         print(i, name)
     choise_colour = int(input("Введите номер выбранного цвета: "))
 
-    # TODO: можно ввести -100 и программа упадет
-    if choise_colour >= len(colours) + 1:
+
+    if 0 >= choise_colour >= len(colours) + 1:
         print('Вы ввели некорректное значение')
     else:
         break
