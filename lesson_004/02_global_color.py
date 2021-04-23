@@ -65,4 +65,4 @@ draw_polygon(angle_quantity,point, angle, length, 3, colour)
 
 sd.pause()
 
-# почти
+# зачет!

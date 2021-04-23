@@ -95,4 +95,4 @@ polygons[choise_figure - 1][1](point, 0, side_length, colour)
 
 sd.pause()
 
-# почти
+# зачет!
