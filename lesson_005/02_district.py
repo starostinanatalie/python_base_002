@@ -5,4 +5,6 @@
 # подсказка: для вывода элементов списка через запятую можно использовать функцию строки .join()
 # https://docs.python.org/3/library/stdtypes.html#str.join
 
-# TODO здесь ваш код
+print('В этом районе живут:', end= ' ')
+for person in folks_room1:
+    print(person, end=', ')
