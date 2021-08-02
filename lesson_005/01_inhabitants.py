@@ -16,3 +16,5 @@ print('В комнате room_2 живут:', end=' ')
 for person in folks_room2:
     print(person, end='')
 print()
+
+# зачет!

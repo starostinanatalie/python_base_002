@@ -40,3 +40,5 @@ my_burger.add_cheese()
 my_burger.add_mayonesse()
 my_burger.add_tomato()
 
+
+# зачет!

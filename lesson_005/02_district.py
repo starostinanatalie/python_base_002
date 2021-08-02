@@ -24,3 +24,5 @@ print(', '.join(fs1_2) + ';')
 print(', '.join(fs2_1) + ';')
 print(', '.join(fs2_2) + ';')
 
+
+# зачет!
