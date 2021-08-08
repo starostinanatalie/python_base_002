@@ -44,4 +44,10 @@
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
 
-# TODO здесь ваш код...
+from mastermind_engine import get_number, check_number
+
+get_number()
+while True:
+    user_number = input('Введите предполагаемое число (4 знака, все цифры разные, начинается не с нуля):')
+    break
+    
