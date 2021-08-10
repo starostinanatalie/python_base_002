@@ -47,6 +47,7 @@
 from mastermind_engine import get_number, check_number
 
 get_number()
+
 while True:
     user_number = input('Введите предполагаемое число (4 знака, все цифры разные, начинается не с нуля):')
     break
