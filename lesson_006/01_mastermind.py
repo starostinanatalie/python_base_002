@@ -21,11 +21,7 @@
 # > быки - 1, коровы - 1
 
 
-# Составить отдельный модуль mastermind_engine, реализующий функциональность игры.
-# В mastermind_engine нужно реализовать функции:
-#   загадать_число()
-#   проверить_число(NN) - возвращает словарь {'bulls': N, 'cows': N}
-# Загаданное число хранить в глобальной переменной.
+
 # Обратите внимание, что строки - это список символов.
 #
 # В текущем модуле (lesson_006/01_mastermind.py) реализовать логику работы с пользователем:
@@ -44,11 +40,23 @@
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
 
-from mastermind_engine import get_number, check_number
+from mastermind_engine import get_number, check_number, number_list
 
 get_number()
-
+step_number = 0
 while True:
+    print(number_list)
     user_number = input('Введите предполагаемое число (4 знака, все цифры разные, начинается не с нуля):')
-    break
+    if len(user_number) == 4 and user_number[0] != '0':
+        answer = check_number(int(user_number))
+        print('Быков: ', answer['Bulls'], 'Коров:', answer['Cows'])
+        step_number += 1
+        if answer['Bulls'] == 4:
+            print('Вы угадали число!')
+            break
+    else:
+        print('Вы ввели некорректное число, введите корректное, пожалуйста!')
+print(f'Вы угадали число за {step_number} ходов')
+print('Хотите еще партию?')
+
     
