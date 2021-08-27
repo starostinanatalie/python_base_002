@@ -28,6 +28,9 @@ def check_number(number):
         divider = int(divider // 10)
     return answer
 
+def is_gamover(answer):
+    if answer['Bulls'] == 4:
+        return True
 
 
 
