@@ -3,7 +3,14 @@ import simple_draw as sd
 snowflakes = []
 
 def create_snowflakes(N):
-    pass
+    global snowflakes
+    snowflakes = [{'x': sd.random_number(10, 1100),
+                   'y': sd.random_number(500, 550),
+                   'length': sd.random_number(10, 100),
+                   'factor_a': sd.random_number(1, 10) * 0.1,
+                   'factor_b': sd.random_number(1, 10) * 0.1,
+                   'factor_c': sd.random_number(40, 80)
+                   } for n in range(N)]
 
 def paint_color_snowflakes(color):
     pass
