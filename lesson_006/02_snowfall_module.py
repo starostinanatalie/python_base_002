@@ -19,6 +19,10 @@ from snowfall import create_snowflakes, paint_color_snowflakes, shift_snowflakes
 # создать_снежинки(N)
 create_snowflakes(30)
 while True:
+    paint_color_snowflakes(color=sd.background_color)
+    shift_snowflakes()
+    paint_color_snowflakes(color=sd.COLOR_WHITE)
+
     #  нарисовать_снежинки_цветом(color=sd.background_color)
     #  сдвинуть_снежинки()
     #  нарисовать_снежинки_цветом(color)
