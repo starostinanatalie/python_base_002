@@ -4,7 +4,8 @@ snowflakes = []
 
 def create_snowflakes(N):
     global snowflakes
-    snowflakes = [{'x': sd.random_number(10, 1100),
+    snowflakes = [{'number': n,
+                   'x': sd.random_number(10, 1100),
                    'y': sd.random_number(500, 550),
                    'length': sd.random_number(10, 100),
                    'factor_a': sd.random_number(1, 10) * 0.1,
@@ -19,7 +20,11 @@ def shift_snowflakes():
     pass
 
 def get_numbers_of_bottom_snowflakes():
-    pass
+    numbers_of_bottom_snowflakes = []
+    for snowflake in snowflakes:
+        if snowflake['y'] < 5:
+            numbers_of_bottom_snowflakes.append(snowflake['number'])
+    return numbers_of_bottom_snowflakes
 
 def delete_snowflakes(numbers):
     pass

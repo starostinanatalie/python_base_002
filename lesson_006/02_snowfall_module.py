@@ -2,7 +2,8 @@
 
 import simple_draw as sd
 from snowfall import create_snowflakes, paint_color_snowflakes, shift_snowflakes, snowflakes, \
-    get_numbers_of_bottom_snowflakes
+    get_numbers_of_bottom_snowflakes, delete_snowflakes
+
 
 # На основе кода из lesson_004/05_snowfall.py
 # сделать модуль snowfall.py в котором реализовать следующие функции
@@ -22,6 +23,11 @@ while True:
     paint_color_snowflakes(color=sd.background_color)
     shift_snowflakes()
     paint_color_snowflakes(color=sd.COLOR_WHITE)
+    numbers = get_numbers_of_bottom_snowflakes()
+    if len(numbers) != 0:
+        delete_snowflakes(numbers)
+        create_snowflakes(len(numbers))
+
 
     #  нарисовать_снежинки_цветом(color=sd.background_color)
     #  сдвинуть_снежинки()
