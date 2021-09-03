@@ -2,19 +2,23 @@
 import simple_draw as sd
 snowflakes = []
 
+
 def create_snowflakes(N):
     global snowflakes
     snowflakes = [{'number': n,
                    'x': sd.random_number(10, 1100),
                    'y': sd.random_number(500, 550),
-                   'length': sd.random_number(10, 100),
+                   'length': sd.random_number(10, 50),
                    'factor_a': sd.random_number(1, 10) * 0.1,
                    'factor_b': sd.random_number(1, 10) * 0.1,
                    'factor_c': sd.random_number(40, 80)
                    } for n in range(N)]
 
 def paint_color_snowflakes(color):
-    pass
+    for snowflake in snowflakes:
+        point = sd.get_point(snowflake['x'], snowflake['y'])
+        sd.snowflake(point, snowflake['length'], color, snowflake['factor_a'],
+                     snowflake['factor_b'], snowflake['factor_c'])
 
 def shift_snowflakes():
     pass
@@ -27,7 +31,9 @@ def get_numbers_of_bottom_snowflakes():
     return numbers_of_bottom_snowflakes
 
 def delete_snowflakes(numbers):
-    pass
+    global snowflakes
+    for n in numbers:
+        snowflakes.remove(n)
 
 def draw_snowflakes(N):
     snowflakes = [{'x': sd.random_number(10, 1100),
