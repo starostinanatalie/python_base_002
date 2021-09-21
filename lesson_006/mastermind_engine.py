@@ -3,6 +3,9 @@ from random import randint
 number_list = []
 
 def get_number():
+    '''
+    Change global list number_list, create new number in appearance of list of figures
+    '''
     global number_list
     while True:
         number_list.clear()
@@ -17,6 +20,10 @@ def get_number():
             break
 
 def check_number(number):
+    '''
+    input int guessed number
+    returns dictionary with keys 'Bulls' and 'Cows' and values with quantity of them
+    '''
     divider = 1000
     answer = {'Bulls': 0, 'Cows': 0}
     for i in range(4):
@@ -29,6 +36,10 @@ def check_number(number):
     return answer
 
 def is_gamover(answer):
+    '''
+    input dictionary with keys 'Bulls' and 'Cows' and values with quantity of them
+    returns boolean True if values of 'Bulls' == 4
+    '''
     if answer['Bulls'] == 4:
         return True
 

@@ -97,3 +97,4 @@ def draw_snowflakes_advanced(N):
         sd.finish_drawing()
         if sd.user_want_exit():
             break
+
