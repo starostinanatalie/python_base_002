@@ -4,6 +4,10 @@ snowflakes = []
 
 
 def create_snowflakes(N):
+    '''
+    input int - quantity of snowballs
+    change global list snowflakes - create this list
+    '''
     global snowflakes
     snowflakes = [{'number': n,
                    'x': sd.random_number(10, 1100),
@@ -15,15 +19,27 @@ def create_snowflakes(N):
                    } for n in range(N)]
 
 def paint_color_snowflakes(color):
+    '''
+    input - list of three integer from 0 to 255 or sd.color
+    without output, draw snowflakes on screen
+    '''
     for snowflake in snowflakes:
         point = sd.get_point(snowflake['x'], snowflake['y'])
         sd.snowflake(point, snowflake['length'], color, snowflake['factor_a'],
                      snowflake['factor_b'], snowflake['factor_c'])
 
 def shift_snowflakes():
+    '''
+    without input, uses global variable - list snowflakes
+    without output, change global variable - list snowflakes, change values x and y
+    '''
     pass
 
 def get_numbers_of_bottom_snowflakes():
+    '''
+    without input, uses global variable - list snowflakes
+    returns list of integer - numbers of falling snowflakes
+    '''
     numbers_of_bottom_snowflakes = []
     for snowflake in snowflakes:
         if snowflake['y'] < 5:
@@ -31,6 +47,10 @@ def get_numbers_of_bottom_snowflakes():
     return numbers_of_bottom_snowflakes
 
 def delete_snowflakes(numbers):
+    '''
+    input list of integer - numbers of falling snowflakes
+    without output, changes global variables - list snowflakes, removes from it some items
+    '''
     global snowflakes
     for n in numbers:
         snowflakes.remove(n)
