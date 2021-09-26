@@ -33,6 +33,8 @@ def shift_snowflakes():
     without output, change global variable - list snowflakes, change values x and y
     '''
     global snowflakes
+    delta_x = 3
+    delta_y = 2
     for snowflake in snowflakes:
         delta_random = sd.random_number(-70, 10)
         delta_determine = 10 / snowflake['length']
