@@ -18,12 +18,13 @@ from snowfall import create_snowflakes, paint_color_snowflakes, shift_snowflakes
 # обращаясь ТОЛЬКО к функциям модуля snowfall
 
 # создать_снежинки(N)
-create_snowflakes(30)
+create_snowflakes(20)
 while True:
     paint_color_snowflakes(color=sd.background_color)
     shift_snowflakes()
     paint_color_snowflakes(color=sd.COLOR_WHITE)
     numbers = get_numbers_of_bottom_snowflakes()
+
     if len(numbers) != 0:
         delete_snowflakes(numbers)
         create_snowflakes(len(numbers))
@@ -40,3 +41,4 @@ while True:
         break
 
 sd.pause()
+
