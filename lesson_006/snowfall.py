@@ -9,8 +9,7 @@ def create_snowflakes(N):
     change global list snowflakes - create this list
     '''
     global snowflakes
-    snowflakes = [{'number': n,
-                   'x': sd.random_number(10, 1100),
+    snowflakes = [{'x': sd.random_number(10, 1100),
                    'y': sd.random_number(500, 550),
                    'length': sd.random_number(10, 50),
                    'factor_a': sd.random_number(1, 10) * 0.1,
@@ -33,7 +32,12 @@ def shift_snowflakes():
     without input, uses global variable - list snowflakes
     without output, change global variable - list snowflakes, change values x and y
     '''
-    pass
+    global snowflakes
+    for snowflake in snowflakes:
+        delta_random = sd.random_number(-70, 10)
+        delta_determine = 10 / snowflake['length']
+        snowflake['x'] = snowflake['x'] + delta_x + delta_random
+        snowflake['y'] = snowflake['y'] + delta_y * delta_determine
 
 def get_numbers_of_bottom_snowflakes():
     '''
@@ -43,7 +47,7 @@ def get_numbers_of_bottom_snowflakes():
     numbers_of_bottom_snowflakes = []
     for snowflake in snowflakes:
         if snowflake['y'] < 5:
-            numbers_of_bottom_snowflakes.append(snowflake['number'])
+            numbers_of_bottom_snowflakes.append(snowflakes.index(snowflake))
     return numbers_of_bottom_snowflakes
 
 def delete_snowflakes(numbers):
@@ -53,7 +57,7 @@ def delete_snowflakes(numbers):
     '''
     global snowflakes
     for n in numbers:
-        snowflakes.remove(n)
+        snowflakes.pop(n)
 
 def draw_snowflakes(N):
     snowflakes = [{'x': sd.random_number(10, 1100),
