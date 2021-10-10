@@ -114,7 +114,8 @@ class Cat:
     def eat(self):
         self.fullfilness += 20
 
-    def
+    def tear_wallpaper(self):
+        self.fullfilness -= 10
 
 citizens = [
     Man(name='Бивис'),
