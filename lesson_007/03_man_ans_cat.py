@@ -67,6 +67,7 @@ class Man:
     def bring_cat(self, cat):
 
 
+
     def go_to_the_house(self, house):
         self.house = house
         self.fullness -= 10
@@ -96,10 +97,11 @@ class House:
     def __init__(self):
         self.food = 50
         self.money = 0
+        self.cats_food = 0
 
     def __str__(self):
-        return 'В доме еды осталось {}, денег осталось {}'.format(
-            self.food, self.money,
+        return 'В доме еды осталось {}, кошачьей еды осталось {}, денег осталось {}'.format(
+            self.food, self.cats_food, self.money,
         )
 
 class Cat:
