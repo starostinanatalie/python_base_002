@@ -49,7 +49,7 @@ class Man:
 
     def work(self):
         cprint('{} сходил на работу'.format(self.name), color='blue')
-        self.house.money += 50
+        self.house.money += 150
         self.fullness -= 10
 
     def watch_MTV(self):
@@ -64,9 +64,24 @@ class Man:
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
+    def shopping_for_cat(self):
+        if self.house.money >= 50:
+            cprint('{} сходил в магазин за едой для кота'.format(self.name), color='magenta')
+            self.house.money -= 50
+            self.house.cats_food += 50
+        else:
+            cprint('{} деньги кончились!'.format(self.name), color='red')
+
     def bring_cat(self, cat):
+        cat.home = self.house
+        self.shopping_for_cat()
+        cprint('{} Подобрал кота, пришлось купить ему еды'.format(self.name), color='cyan')
 
-
+    def clean_house(self):
+        if self.house.dirt > 100:
+            cprint('{} убрался в доме'.format(self.name), color='magenta')
+            self.house.dirt -= 100
+            self.fullness -= 20
 
     def go_to_the_house(self, house):
         self.house = house
@@ -98,33 +113,40 @@ class House:
         self.food = 50
         self.money = 0
         self.cats_food = 0
+        self.dirt = 0
 
     def __str__(self):
-        return 'В доме еды осталось {}, кошачьей еды осталось {}, денег осталось {}'.format(
-            self.food, self.cats_food, self.money,
+        return 'В доме еды осталось {}, кошачьей еды осталось {}, денег осталось {}, грязно на {} баллов'.format(
+            self.food, self.cats_food, self.money, self.dirt
         )
 
 class Cat:
 
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.fullfilness = 20
         self.home = None
 
     def sleep(self):
         self.fullfilness -= 10
+        cprint('Кот {} спит'.format(self.name), color='green')
 
     def eat(self):
         self.fullfilness += 20
+        self.home.cats_food -= 10
 
     def tear_wallpaper(self):
         self.fullfilness -= 10
+        self.home.dirt += 5
+
+    def __str__(self):
+        return 'Кот - {}, сытость {}'.format(
+            self.name, self.fullfilness,
+        )
 
 citizens = [
-    Man(name='Бивис'),
-    Man(name='Батхед'),
-    Man(name='Кенни'),
-]
-
+    Man(name='Паша'),
+    ]
 
 my_sweet_home = House()
 for citisen in citizens:
