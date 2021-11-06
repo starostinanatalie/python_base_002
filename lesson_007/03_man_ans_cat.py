@@ -79,7 +79,7 @@ class Man:
 
     def clean_house(self):
         if self.house.dirt > 100:
-            cprint('{} убрался в доме'.format(self.name), color='magenta')
+            cprint('{} убрался в доме'.format(self.name), color='blue')
             self.house.dirt -= 100
             self.fullness -= 20
 
@@ -97,6 +97,10 @@ class Man:
             self.eat()
         elif self.house.food < 10:
             self.shopping()
+        elif self.house.cats_food < 10:
+            self.shopping_for_cat()
+        elif self.house.dirt > 100:
+            self.clean_house()
         elif self.house.money < 50:
             self.work()
         elif dice == 1:
@@ -132,10 +136,12 @@ class Cat:
         cprint('Кот {} спит'.format(self.name), color='green')
 
     def eat(self):
+        cprint('Кот {} ест'.format(self.name), color='green')
         self.fullfilness += 20
         self.home.cats_food -= 10
 
     def tear_wallpaper(self):
+        cprint('Кот {} дерет обои'.format(self.name), color='magenta')
         self.fullfilness -= 10
         self.home.dirt += 5
 
@@ -144,21 +150,33 @@ class Cat:
             self.name, self.fullfilness,
         )
 
-citizens = [
-    Man(name='Паша'),
-    ]
+    def act(self):
+        if self.fullness <= 0:
+            cprint('Кот {} умер...'.format(self.name), color='red')
+            return
+        dice = randint(1, 6)
+        if self.fullness < 20:
+            self.eat()
+        elif dice == 1:
+            self.eat()
+        elif dice == 2 or dice == 5:
+            self.tear_wallpaper()
+        else:
+            self.sleep()
 
+Pavel = Man(name='Паша')
+Barsik = Cat(name='Барсик')
 my_sweet_home = House()
-for citisen in citizens:
-    citisen.go_to_the_house(house=my_sweet_home)
+Pavel.go_to_the_house(house=my_sweet_home)
+Pavel.bring_cat()
 
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
-    for citisen in citizens:
-        citisen.act()
+    Pavel.act()
+    Barsik.act()
     print('--- в конце дня ---')
-    for citisen in citizens:
-        print(citisen)
+    print(Pavel)
+    print(Barsik)
     print(my_sweet_home)
 
 
