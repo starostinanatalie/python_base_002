@@ -93,16 +93,16 @@ class Man:
             cprint('{} умер...'.format(self.name), color='red')
             return
         dice = randint(1, 6)
-        if self.fullness < 20:
+        if self.fullness <= 20:
             self.eat()
-        elif self.house.food < 10:
+        elif self.house.food <= 10:
             self.shopping()
-        elif self.house.cats_food < 10:
+        elif self.house.money <= 50:
+            self.work()
+        elif self.house.cats_food <= 10:
             self.shopping_for_cat()
         elif self.house.dirt > 100:
             self.clean_house()
-        elif self.house.money < 50:
-            self.work()
         elif dice == 1:
             self.work()
         elif dice == 2:
@@ -115,7 +115,7 @@ class House:
 
     def __init__(self):
         self.food = 50
-        self.money = 0
+        self.money = 150
         self.cats_food = 0
         self.dirt = 0
 
@@ -136,9 +136,12 @@ class Cat:
         cprint('Кот {} спит'.format(self.name), color='green')
 
     def eat(self):
-        cprint('Кот {} ест'.format(self.name), color='green')
-        self.fullfilness += 20
-        self.home.cats_food -= 10
+        if self.home.cats_food >= 10:
+            cprint('Кот {} ест'.format(self.name), color='green')
+            self.fullfilness += 20
+            self.home.cats_food -= 10
+        else:
+            cprint('Кот {} нет еды'.format(self.name), color='red')
 
     def tear_wallpaper(self):
         cprint('Кот {} дерет обои'.format(self.name), color='magenta')
@@ -151,11 +154,11 @@ class Cat:
         )
 
     def act(self):
-        if self.fullness <= 0:
+        if self.fullfilness <= 0:
             cprint('Кот {} умер...'.format(self.name), color='red')
             return
         dice = randint(1, 6)
-        if self.fullness < 20:
+        if self.fullfilness < 20:
             self.eat()
         elif dice == 1:
             self.eat()
@@ -165,18 +168,31 @@ class Cat:
             self.sleep()
 
 Pavel = Man(name='Паша')
-Barsik = Cat(name='Барсик')
+cats = [
+    Cat(name='Барсик'),
+    Cat(name='Вася'),
+    Cat(name='Пушок'),
+    Cat(name='Маркиз'),
+    Cat(name='Мурзик'),
+    Cat(name='Кокс'),
+    Cat(name='Айсик'),
+    Cat(name='Хрюндель'),
+    Cat(name='Шизик')
+]
 my_sweet_home = House()
 Pavel.go_to_the_house(house=my_sweet_home)
-Pavel.bring_cat()
+for cat in cats:
+    Pavel.bring_cat(cat)
 
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
     Pavel.act()
-    Barsik.act()
+    for cat in cats:
+        cat.act()
     print('--- в конце дня ---')
     print(Pavel)
-    print(Barsik)
+    for cat in cats:
+        print(cat)
     print(my_sweet_home)
 
 
