@@ -12,23 +12,29 @@ class Snowflake:
 
     def __init__(self):
         self.x = sd.random_number(10, 600)
-        self.y = 'y': sd.random_number(500, 750)
-        self.length = 'length': sd.random_number(10, 35)
-        self.factor_a = 'factor_a': sd.random_number(1, 10) * 0.1
-        self.factor_b = 'factor_b': sd.random_number(1, 10) * 0.1
-        self.factor_c = 'factor_c': sd.random_number(40, 80)
+        self.y = sd.random_number(500, 750)
+        self.length = sd.random_number(10, 35)
+        self.factor_a = sd.random_number(1, 10) * 0.1
+        self.factor_b = sd.random_number(1, 10) * 0.1
+        self.factor_c = sd.random_number(40, 80)
+        self.color = sd.background_color
 
     def move(self):
         pass
 
     def draw(self):
-        pass
+        self.point = sd.get_point(self.x, self.y)
+        self.color = sd.COLOR_WHITE
+        sd.snowflake(self.point, self.length, self.color, self.factor_a, self.factor_b, self.factor_c)
 
     def can_fall(self):
         pass
 
     def clear_previous_picture(self):
-        pass
+        self.point = sd.get_point(self.x, self.y)
+        self.color = sd.background_color
+        sd.snowflake(self.point, self.length, self.color, self.factor_a, self.factor_b, self.factor_c)
+
 
 
     # TODO здесь ваш код
