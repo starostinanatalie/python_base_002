@@ -9,7 +9,27 @@ import simple_draw as sd
 
 
 class Snowflake:
-    pass
+
+    def __init__(self):
+        self.x = sd.random_number(10, 600)
+        self.y = 'y': sd.random_number(500, 750)
+        self.length = 'length': sd.random_number(10, 35)
+        self.factor_a = 'factor_a': sd.random_number(1, 10) * 0.1
+        self.factor_b = 'factor_b': sd.random_number(1, 10) * 0.1
+        self.factor_c = 'factor_c': sd.random_number(40, 80)
+
+    def move(self):
+        pass
+
+    def draw(self):
+        pass
+
+    def can_fall(self):
+        pass
+
+    def clear_previous_picture(self):
+        pass
+
 
     # TODO здесь ваш код
 
