@@ -28,16 +28,12 @@ class Snowflake:
         sd.snowflake(self.point, self.length, self.color, self.factor_a, self.factor_b, self.factor_c)
 
     def can_fall(self):
-        pass
+        return self.y > 5
 
     def clear_previous_picture(self):
         self.point = sd.get_point(self.x, self.y)
         self.color = sd.background_color
         sd.snowflake(self.point, self.length, self.color, self.factor_a, self.factor_b, self.factor_c)
-
-
-
-    # TODO здесь ваш код
 
 
 flake = Snowflake()

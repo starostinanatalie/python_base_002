@@ -29,6 +29,10 @@ class Water:
 
 class Air:
     pass
+    def __str__(self):
+        return 'Кот - {}, сытость {}'.format(
+            self.name, self.fullfilness,
+        )
 
 class Fire:
     pass
