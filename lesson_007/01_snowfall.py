@@ -10,6 +10,8 @@ import simple_draw as sd
 
 class Snowflake:
 
+    total = 0
+
     def __init__(self):
         self.x = sd.random_number(10, 600)
         self.y = sd.random_number(500, 750)
@@ -18,9 +20,13 @@ class Snowflake:
         self.factor_b = sd.random_number(1, 10) * 0.1
         self.factor_c = sd.random_number(40, 80)
         self.color = sd.background_color
+        self.total += 1
 
     def move(self):
-        pass
+        delta_random = sd.random_number(-2, 3)
+        delta_determine = 10 / self.length
+        self.x = self.x + delta_random
+        self.y = self.y - 20 * delta_determine
 
     def draw(self):
         self.point = sd.get_point(self.x, self.y)

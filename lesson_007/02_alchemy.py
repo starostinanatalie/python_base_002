@@ -21,43 +21,54 @@
 
 class Water:
 
-    def __init__(self):
-        pass
-
     def __str__(self):
         return 'Вода'
 
 class Air:
-    pass
+
     def __str__(self):
-        return 'Кот - {}, сытость {}'.format(
-            self.name, self.fullfilness,
-        )
+        return 'Воздух'
+
 
 class Fire:
-    pass
+
+    def __str__(self):
+        return 'Огонь'
 
 class Soil:
 
-    pass
+    def __str__(self):
+        return 'Земля'
 
 class Storm:
-    pass
+
+    def __str__(self):
+        return 'Шторм'
 
 class Steam:
-    pass
+
+    def __str__(self):
+        return 'Пар'
 
 class Dirt:
-    pass
+
+    def __str__(self):
+        return 'Грязь'
 
 class Lightning:
-    pass
+
+    def __str__(self):
+        return 'Молния'
 
 class Dust:
-    pass
+
+    def __str__(self):
+        return 'Пыль'
 
 class Lava:
-    pass
+
+    def __str__(self):
+        return 'Лава'
 
 print(Fire(), '+', Air(), '=', Fire() + Air())
 print(Water(), '+', Air(), '=', Water() + Air())
