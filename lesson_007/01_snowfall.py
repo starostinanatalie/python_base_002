@@ -22,6 +22,10 @@ class Snowflake:
         self.color = sd.background_color
         self.total += 1
 
+    def get_flakes(self, count):
+        pass
+
+
     def move(self):
         delta_random = sd.random_number(-2, 3)
         delta_determine = 10 / self.length
@@ -55,7 +59,9 @@ while True:
         break
 
 # шаг 2: создать снегопад - список объектов Снежинка в отдельном списке, обработку примерно так:
-# flakes = get_flakes(count=N)  # создать список снежинок
+flakes = get_flakes(count=20)
+print(flakes)
+
 # while True:
 #     for flake in flakes:
 #         flake.clear_previous_picture()
