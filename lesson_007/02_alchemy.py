@@ -24,6 +24,17 @@ class Water:
     def __str__(self):
         return 'Вода'
 
+    def __add__(self, other):
+        if isinstance(other, Air):
+            return Storm()
+        elif isinstance(other, Fire):
+            return Steam()
+        elif isinstance(other, Soil):
+            return Dirt
+        else:
+            return None
+
+
 class Air:
 
     def __str__(self):
@@ -70,7 +81,7 @@ class Lava:
     def __str__(self):
         return 'Лава'
 
-print(Fire(), '+', Air(), '=', Fire() + Air())
+#print(Fire(), '+', Air(), '=', Fire() + Air())
 print(Water(), '+', Air(), '=', Water() + Air())
 
 
