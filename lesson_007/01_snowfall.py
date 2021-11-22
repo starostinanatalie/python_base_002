@@ -13,7 +13,7 @@ class Snowflake:
     total = 0
 
     def __init__(self):
-        self.x = sd.random_number(10, 600)
+        self.x = sd.random_number(10, 550)
         self.y = sd.random_number(500, 750)
         self.length = sd.random_number(10, 35)
         self.factor_a = sd.random_number(1, 10) * 0.1
@@ -21,10 +21,6 @@ class Snowflake:
         self.factor_c = sd.random_number(40, 80)
         self.color = sd.background_color
         self.total += 1
-
-    def get_flakes(self, count):
-        pass
-
 
     def move(self):
         delta_random = sd.random_number(-2, 3)
@@ -45,6 +41,23 @@ class Snowflake:
         self.color = sd.background_color
         sd.snowflake(self.point, self.length, self.color, self.factor_a, self.factor_b, self.factor_c)
 
+def get_flakes(count):
+    temp_list = []
+    for _ in range(count):
+        temp_list.append(Snowflake())
+    return temp_list
+
+def get_fallen_flakes():
+    number_fallen_flakes = 0
+    for flake in flakes:
+        if not flake.can_fall():
+            flakes.remove(flake)
+            number_fallen_flakes += 1
+    return number_fallen_flakes
+
+def append_flakes(count):
+    for _ in range(count):
+        flakes.append(Snowflake())
 
 flake = Snowflake()
 
@@ -59,19 +72,18 @@ while True:
         break
 
 # шаг 2: создать снегопад - список объектов Снежинка в отдельном списке, обработку примерно так:
-flakes = get_flakes(count=20)
-print(flakes)
+flakes = get_flakes(count=30)
 
-# while True:
-#     for flake in flakes:
-#         flake.clear_previous_picture()
-#         flake.move()
-#         flake.draw()
-#     fallen_flakes = get_fallen_flakes()  # подчитать сколько снежинок уже упало
-#     if fallen_flakes:
-#         append_flakes(count=fallen_flakes)  # добавить еще сверху
-#     sd.sleep(0.1)
-#     if sd.user_want_exit():
-#         break
+while True:
+    for flake in flakes:
+        flake.clear_previous_picture()
+        flake.move()
+        flake.draw()
+    fallen_flakes = get_fallen_flakes()  # подчитать сколько снежинок уже упало
+    if fallen_flakes:
+        append_flakes(count=fallen_flakes)  # добавить еще сверху
+    sd.sleep(0.1)
+    if sd.user_want_exit():
+        break
 
 sd.pause()
