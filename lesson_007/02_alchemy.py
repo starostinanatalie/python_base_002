@@ -30,12 +30,22 @@ class Water:
         elif isinstance(other, Fire):
             return Steam()
         elif isinstance(other, Soil):
-            return Dirt
+            return Dirt()
         else:
             return None
 
 
 class Air:
+
+    def __add__(self, other):
+        if isinstance(other, Water):
+            return Storm()
+        elif isinstance(other, Fire):
+            return Lightning()
+        elif isinstance(other, Soil):
+            return Dust()
+        else:
+            return None
 
     def __str__(self):
         return 'Воздух'
@@ -43,10 +53,30 @@ class Air:
 
 class Fire:
 
+    def __add__(self, other):
+        if isinstance(other, Water):
+            return Steam()
+        elif isinstance(other, Air):
+            return Lightning()
+        elif isinstance(other, Soil):
+            return Lava()
+        else:
+            return None
+
     def __str__(self):
         return 'Огонь'
 
 class Soil:
+
+    def __add__(self, other):
+        if isinstance(other, Water):
+            return Dirt()
+        elif isinstance(other, Air):
+            return Dust()
+        elif isinstance(other, Fire):
+            return Lava()
+        else:
+            return None
 
     def __str__(self):
         return 'Земля'
@@ -81,10 +111,12 @@ class Lava:
     def __str__(self):
         return 'Лава'
 
-#print(Fire(), '+', Air(), '=', Fire() + Air())
+print(Fire(), '+', Air(), '=', Fire() + Air())
 print(Water(), '+', Air(), '=', Water() + Air())
-
-
+print(Fire(), '+', Soil(), '=', Fire() + Soil())
+print(Soil(), '+', Air(), '=', Soil() + Air())
+print(Fire(), '+', Water(), '=', Fire() + Water())
+print(Water(), '+', Soil(), '=', Water() + Soil())
 
 # Усложненное задание (делать по желанию)
 # Добавить еще элемент в игру.
