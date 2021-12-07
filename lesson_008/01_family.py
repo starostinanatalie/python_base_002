@@ -176,21 +176,59 @@ class Wife(Human):
             cprint('{} убралась, теперь чисто'.format(self.name))
         self.fullfilness -= 10
 
+class Child(Human):
+
+    def __init__(self,name, house):
+        super().__init__(name, house)
+
+    def __str__(self):
+        return super().__str__()
+
+    def act(self):
+        if self.fullfilness < 10:
+            self.eat()
+        else:
+            dice = randint(1, 6)
+            if dice == 1:
+                self.eat()
+            else:
+                self.sleep()
+
+    def eat(self):
+        if self.house.food > 10:
+            self.fullfilness += 10
+            self.house.food_history += 10
+            self.house.food -=10
+            cprint('{} поел, сытость {}'.format(self.name, self.fullfilness))
+        else:
+            self.fullfilness += self.house.food
+            self.house.food_history += self.house.food
+            self.house.food = 0
+            cprint('{} поел, сытость {}'.format(self.name, self.fullfilness))
+
+    def sleep(self):
+        self.fullfilness -= 10
+        cprint('{} поел, сытость {}'.format(self.name, self.fullfilness))
+
+
+
 home = House()
 serge = Husband(name='Сережа', house=home)
 masha = Wife(name='Маша', house=home)
+kolya = Child(name='Коля', house=home)
 
 for day in range(1, 366):
     cprint('================== День {} =================='.format(day), color='red')
     serge.act()
     masha.act()
+    kolya.act()
     home.become_dirt()
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
+    cprint(kolya, color='cyan')
     cprint(home, color='cyan')
 cprint('За год заработано денег - {}, съедено еды - {}, куплено шуб - {}'.format(home.salary_history,\
        home.food_history, home.fur_coats))
-# TODO после реализации первой части - отдать на проверку учителю
 
 ######################################################## Часть вторая
 #
@@ -217,24 +255,6 @@ cprint('За год заработано денег - {}, съедено еды 
 # Если кот дерет обои, то грязи становится больше на 5 пунктов
 
 
-class Cat:
-
-    def __init__(self):
-        pass
-
-    def act(self):
-        pass
-
-    def eat(self):
-        pass
-
-    def sleep(self):
-        pass
-
-    def soil(self):
-        pass
-
-
 ######################################################## Часть вторая бис
 #
 # После реализации первой части надо в ветке мастер продолжить работу над семьей - добавить ребенка
@@ -245,23 +265,6 @@ class Cat:
 #
 # отличия от взрослых - кушает максимум 10 единиц еды,
 # степень счастья  - не меняется, всегда ==100 ;)
-
-class Child:
-
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        return super().__str__()
-
-    def act(self):
-        pass
-
-    def eat(self):
-        pass
-
-    def sleep(self):
-        pass
 
 
 # TODO после реализации второй части - отдать на проверку учителем две ветки
