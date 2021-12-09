@@ -51,12 +51,14 @@ class House:
         self.food_history = 0
         self.fur_coats = 0
         self.dirt = 0
+        self.food_for_cat = 30
 
     def become_dirt(self):
         self.dirt += 5
 
     def is_dirt(self):
         return self.dirt > 90
+
 
     def __str__(self):
         return 'Денег в тумбочке {}, еды в холодильнике {}, грязно на {}%'.format(self.money, self.food, self.dirt)
@@ -71,6 +73,10 @@ class Human:
 
     def __str__(self):
         return '{}, сытость {}, счастья {}'.format(self.name, self.fullfilness, self.happiness)
+
+    def pet(self):
+        self.happiness += 5
+        cprint('{} гладил кота'.format(self.name))
 
     def eat(self):
         if self.house.food > 30:
@@ -107,6 +113,8 @@ class Husband(Human):
                 self.work()
             elif dice == 2:
                 self.eat()
+            elif dice == 5:
+                self.pet()
             else:
                 self.gaming()
 
@@ -136,14 +144,22 @@ class Wife(Human):
             self.eat()
         elif self.house.food < 60:
             self.shopping()
+        elif self.house.food_for_cat < 10:
+            self.buy_food_for_cat()
         elif self.happiness < 11 and self.house.money > 350:
             self.buy_fur_coat()
+        elif self.happiness < 11:
+            self.pet()
         elif self.house.dirt > 80:
             self.clean_house()
         else:
             dice = randint(1, 6)
             if dice == 1:
                 self.shopping()
+            elif dice == 5:
+                self.pet()
+            elif dice == 6:
+                self.buy_food_for_cat()
             elif dice == 2 and self.house.money > 350:
                 self.buy_fur_coat()
             else:
@@ -160,6 +176,17 @@ class Wife(Human):
             self.house.money = 0
             cprint('{} купила еды на сколько денег хватило'.format(self.name))
 
+    def buy_food_for_cat(self):
+        self.fullfilness -= 10
+        if self.house.money > 70:
+            self.house.food_for_cat += 70
+            self.house.money -= 70
+            cprint('{} купила еды котам на неделю'.format(self.name))
+        else:
+            self.house.food_for_cat += self.house.money
+            self.house.money = 0
+            cprint('{} купила еды котам на сколько денег хватило'.format(self.name))
+
     def buy_fur_coat(self):
         self.fullfilness -= 10
         self.happiness += 60
@@ -175,6 +202,49 @@ class Wife(Human):
             self.house.dirt = 0
             cprint('{} убралась, теперь чисто'.format(self.name))
         self.fullfilness -= 10
+
+class Cat():
+
+    def __init__(self, name, house):
+        self.name = name
+        self.fullfilness = 30
+        self.house = house
+
+    def __str__(self):
+        return 'Кот {}, сытость - {}'.format(self.name, self.fullfilness)
+
+    def eat(self):
+        if self.house.food_for_cat >= 10:
+            self.fullfilness += 20
+            self.house.food_for_cat -= 10
+            cprint('{} поел от пуза'.format(self.name))
+
+        else:
+            self.fullfilness += self.house.food_for_cat * 2
+            self.house.food_for_cat = 0
+            cprint('{} ну поел'.format(self.name))
+
+    def sleep(self):
+        self.fullfilness -= 10
+        cprint('{} спит'.format(self.name))
+
+    def tear_wallpapers(self):
+        self.fullfilness -= 10
+        self.house.dirt += 5
+        cprint('{} дерет обои'.format(self.name))
+
+    def act(self):
+        if self.fullfilness < 5:
+            self.eat()
+        else:
+            dice = randint(1, 6)
+            if dice == 1:
+                self.tear_wallpapers()
+            elif dice == 6:
+                self.eat()
+            else:
+                self.sleep()
+
 
 class Child(Human):
 
@@ -216,19 +286,26 @@ home = House()
 serge = Husband(name='Сережа', house=home)
 masha = Wife(name='Маша', house=home)
 kolya = Child(name='Коля', house=home)
+barsik = Cat(name='Барсик', house=home)
+murzik = Cat(name='Мурзик', house=home)
 
 for day in range(1, 366):
     cprint('================== День {} =================='.format(day), color='red')
     serge.act()
     masha.act()
     kolya.act()
+    barsik.act()
+    murzik.act()
     home.become_dirt()
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(kolya, color='cyan')
+    cprint(barsik, color='cyan')
+    cprint(murzik, color='cyan')
     cprint(home, color='cyan')
 cprint('За год заработано денег - {}, съедено еды - {}, куплено шуб - {}'.format(home.salary_history,\
        home.food_history, home.fur_coats))
+# TODO после реализации первой части - отдать на проверку учителю
 
 ######################################################## Часть вторая
 #
@@ -265,9 +342,6 @@ cprint('За год заработано денег - {}, съедено еды 
 #
 # отличия от взрослых - кушает максимум 10 единиц еды,
 # степень счастья  - не меняется, всегда ==100 ;)
-
-
-# TODO после реализации второй части - отдать на проверку учителем две ветки
 
 
 ######################################################## Часть третья
