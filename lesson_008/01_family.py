@@ -101,7 +101,9 @@ class Husband(Human):
     def act(self):
         if self.house.is_dirt():
             self.happiness -= 10
-        if self.fullfilness < 2:
+        if self.fullfilness < 0 or self.happiness < 10:
+            cprint('{} умер'.format(self.name), color='red')
+        elif self.fullfilness < 10:
             self.eat()
         elif self.happiness < 11:
             self.gaming()
@@ -140,7 +142,9 @@ class Wife(Human):
     def act(self):
         if self.house.is_dirt():
             self.happiness -= 10
-        if self.fullfilness < 10:
+        if self.fullfilness < 0 or self.happiness < 10:
+            cprint('{} умер'.format(self.name), color='red')
+        elif self.fullfilness < 10:
             self.eat()
         elif self.house.food < 60:
             self.shopping()
@@ -217,24 +221,26 @@ class Cat():
         if self.house.food_for_cat >= 10:
             self.fullfilness += 20
             self.house.food_for_cat -= 10
-            cprint('{} поел от пуза'.format(self.name))
+            cprint('{} поел от пуза'.format(self.name), color='yellow')
 
         else:
             self.fullfilness += self.house.food_for_cat * 2
             self.house.food_for_cat = 0
-            cprint('{} ну поел'.format(self.name))
+            cprint('{} ну поел'.format(self.name), color='yellow')
 
     def sleep(self):
         self.fullfilness -= 10
-        cprint('{} спит'.format(self.name))
+        cprint('{} спит'.format(self.name), color='yellow')
 
     def tear_wallpapers(self):
         self.fullfilness -= 10
         self.house.dirt += 5
-        cprint('{} дерет обои'.format(self.name))
+        cprint('{} дерет обои'.format(self.name), color='yellow')
 
     def act(self):
-        if self.fullfilness < 5:
+        if self.fullfilness < 0:
+            cprint('{} умер'.format(self.name), color='red')
+        elif self.fullfilness < 5:
             self.eat()
         else:
             dice = randint(1, 6)
@@ -255,7 +261,9 @@ class Child(Human):
         return super().__str__()
 
     def act(self):
-        if self.fullfilness < 10:
+        if self.fullfilness < 0:
+            cprint('{} умер'.format(self.name), color='red')
+        elif self.fullfilness < 10:
             self.eat()
         else:
             dice = randint(1, 6)
@@ -286,28 +294,36 @@ home = House()
 serge = Husband(name='Сережа', house=home)
 masha = Wife(name='Маша', house=home)
 kolya = Child(name='Коля', house=home)
-barsik = Cat(name='Барсик', house=home)
-murzik = Cat(name='Мурзик', house=home)
+cats = [
+    Cat(name='Барсик', house=home),
+    Cat(name='Вася', house=home),
+    Cat(name='Пушок', house=home),
+    Cat(name='Маркиз', house=home),
+    Cat(name='Мурзик', house=home),
+    Cat(name='Кокс', house=home),
+    Cat(name='Айсик', house=home),
+    Cat(name='Хрюндель', house=home),
+    Cat(name='Шизик', house=home),
+    Cat(name='Багира', house=home)
+]
 
 for day in range(1, 366):
     cprint('================== День {} =================='.format(day), color='red')
     serge.act()
     masha.act()
     kolya.act()
-    barsik.act()
-    murzik.act()
+    for cat in cats[:8]:
+        cat.act()
     home.become_dirt()
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(kolya, color='cyan')
-    cprint(barsik, color='cyan')
-    cprint(murzik, color='cyan')
+    for cat in cats[:8]:
+        cprint(cat, color='blue')
     cprint(home, color='cyan')
 cprint('За год заработано денег - {}, съедено еды - {}, куплено шуб - {}'.format(home.salary_history,\
        home.food_history, home.fur_coats))
-# TODO после реализации первой части - отдать на проверку учителю
 
-######################################################## Часть вторая
 #
 # После подтверждения учителем первой части надо
 # отщепить ветку develop и в ней начать добавлять котов в модель семьи
@@ -349,24 +365,6 @@ cprint('За год заработано денег - {}, съедено еды 
 # после подтверждения учителем второй части (обоих веток)
 # влить в мастер все коммиты из ветки develop и разрешить все конфликты
 # отправить на проверку учителем.
-
-
-home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
-kolya = Child(name='Коля')
-murzik = Cat(name='Мурзик')
-
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
-    kolya.act()
-    murzik.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(kolya, color='cyan')
-    cprint(murzik, color='cyan')
 
 
 # Усложненное задание (делать по желанию)
