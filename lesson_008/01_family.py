@@ -3,44 +3,6 @@
 from termcolor import cprint
 from random import randint
 
-######################################################## Часть первая
-#
-# Создать модель жизни небольшой семьи.
-#
-# Каждый день участники жизни могут делать только одно действие.
-# Все вместе они должны прожить год и не умереть.
-#
-# Муж может:
-#   есть,
-#   играть в WoT,
-#   ходить на работу,
-# Жена может:
-#   есть,
-#   покупать продукты,
-#   покупать шубу,
-#   убираться в доме,
-
-# Все они живут в одном доме, дом характеризуется:
-#   кол-во денег в тумбочке (в начале - 100)
-#   кол-во еды в холодильнике (в начале - 50)
-#   кол-во грязи (в начале - 0)
-#
-# У людей есть имя, степень сытости (в начале - 30) и степень счастья (в начале - 100).
-#
-# Любое действие, кроме "есть", приводит к уменьшению степени сытости на 10 пунктов
-# Кушают взрослые максимум по 30 единиц еды, степень сытости растет на 1 пункт за 1 пункт еды.
-# Степень сытости не должна падать ниже 0, иначе чел умрет от голода.
-#
-# Деньги в тумбочку добавляет муж, после работы - 150 единиц за раз.
-# Еда стоит 10 денег 10 единиц еды. Шуба стоит 350 единиц.
-#
-# Грязь добавляется каждый день по 5 пунктов, за одну уборку жена может убирать до 100 единиц грязи.
-# Если в доме грязи больше 90 - у людей падает степень счастья каждый день на 10 пунктов,
-# Степень счастья растет: у мужа от игры в WoT (на 20), у жены от покупки шубы (на 60, но шуба дорогая)
-# Степень счастья не должна падать ниже 10, иначе чел умирает от депрессии.
-#
-# Подвести итоги жизни за год: сколько было заработано денег, сколько сьедено еды, сколько куплено шуб.
-
 
 class House:
 
@@ -52,6 +14,7 @@ class House:
         self.fur_coats = 0
         self.dirt = 0
         self.food_for_cat = 30
+        self.cats = 0
 
     def become_dirt(self):
         self.dirt += 5
@@ -61,8 +24,11 @@ class House:
 
 
     def __str__(self):
-        return 'Денег в тумбочке {}, еды в холодильнике {}, грязно на {}%'.format(self.money, self.food, self.dirt)
-
+        return 'Денег в тумбочке {}, котов {}, еды для людей {}, для котов {}, грязно на {}%'.format(self.money,
+                                                                                                     self.cats,
+                                                                                                     self.food,
+                                                                                                     self.food_for_cat,
+                                                                                                     self.dirt)
 class Human:
 
     def __init__(self, name, house):
@@ -72,7 +38,13 @@ class Human:
         self.house = house
 
     def __str__(self):
-        return '{}, сытость {}, счастья {}'.format(self.name, self.fullfilness, self.happiness)
+        if not self.is_dead():
+            return '{}, сытость {}, счастья {}'.format(self.name, self.fullfilness, self.happiness)
+        else:
+            return '{} уже умер'.format(self.name)
+
+    def is_dead(self):
+        return self.fullfilness < 0 or self.happiness < 10
 
     def pet(self):
         self.happiness += 5
@@ -99,9 +71,9 @@ class Husband(Human):
         return super().__str__()
 
     def act(self):
-        if self.house.is_dirt():
+        if self.house.is_dirt() and not self.is_dead():
             self.happiness -= 10
-        if self.fullfilness < 0 or self.happiness < 10:
+        if self.is_dead():
             cprint('{} умер'.format(self.name), color='red')
         elif self.fullfilness < 10:
             self.eat()
@@ -140,9 +112,9 @@ class Wife(Human):
         return super().__str__()
 
     def act(self):
-        if self.house.is_dirt():
+        if self.house.is_dirt() and not self.is_dead():
             self.happiness -= 10
-        if self.fullfilness < 0 or self.happiness < 10:
+        if self.is_dead():
             cprint('{} умер'.format(self.name), color='red')
         elif self.fullfilness < 10:
             self.eat()
@@ -169,6 +141,7 @@ class Wife(Human):
             else:
                 self.clean_house()
 
+
     def shopping(self):
         self.fullfilness -= 10
         if self.house.money > 70:
@@ -182,9 +155,9 @@ class Wife(Human):
 
     def buy_food_for_cat(self):
         self.fullfilness -= 10
-        if self.house.money > 70:
-            self.house.food_for_cat += 70
-            self.house.money -= 70
+        if self.house.money > 150:
+            self.house.food_for_cat += 150
+            self.house.money -= 150
             cprint('{} купила еды котам на неделю'.format(self.name))
         else:
             self.house.food_for_cat += self.house.money
@@ -209,13 +182,19 @@ class Wife(Human):
 
 class Cat():
 
+    cats = ['Барсик', 'Вася', 'Пушок', 'Маркиз', 'Мурзик', 'Кокс', 'Айсик', 'Хрюндель', 'Шизик', 'Багира']
+
     def __init__(self, name, house):
         self.name = name
         self.fullfilness = 30
         self.house = house
+        house.cats += 1
 
     def __str__(self):
-        return 'Кот {}, сытость - {}'.format(self.name, self.fullfilness)
+        if not self.is_dead():
+            return 'Кот {}, сытость - {}'.format(self.name, self.fullfilness)
+        else:
+            return 'Кот {} уже умер'.format(self.name)
 
     def eat(self):
         if self.house.food_for_cat >= 10:
@@ -223,10 +202,12 @@ class Cat():
             self.house.food_for_cat -= 10
             cprint('{} поел от пуза'.format(self.name), color='yellow')
 
-        else:
+        elif self.house.food_for_cat > 0:
             self.fullfilness += self.house.food_for_cat * 2
             self.house.food_for_cat = 0
             cprint('{} ну поел'.format(self.name), color='yellow')
+        else:
+            cprint('Для {} еды больше нет'.format(self.name))
 
     def sleep(self):
         self.fullfilness -= 10
@@ -237,8 +218,11 @@ class Cat():
         self.house.dirt += 5
         cprint('{} дерет обои'.format(self.name), color='yellow')
 
+    def is_dead(self):
+        return self.fullfilness < 0
+
     def act(self):
-        if self.fullfilness < 0:
+        if self.is_dead():
             cprint('{} умер'.format(self.name), color='red')
         elif self.fullfilness < 5:
             self.eat()
@@ -261,7 +245,7 @@ class Child(Human):
         return super().__str__()
 
     def act(self):
-        if self.fullfilness < 0:
+        if self.is_dead():
             cprint('{} умер'.format(self.name), color='red')
         elif self.fullfilness < 10:
             self.eat()
@@ -294,18 +278,6 @@ home = House()
 serge = Husband(name='Сережа', house=home)
 masha = Wife(name='Маша', house=home)
 kolya = Child(name='Коля', house=home)
-cats = [
-    Cat(name='Барсик', house=home),
-    Cat(name='Вася', house=home),
-    Cat(name='Пушок', house=home),
-    Cat(name='Маркиз', house=home),
-    Cat(name='Мурзик', house=home),
-    Cat(name='Кокс', house=home),
-    Cat(name='Айсик', house=home),
-    Cat(name='Хрюндель', house=home),
-    Cat(name='Шизик', house=home),
-    Cat(name='Багира', house=home)
-]
 
 for day in range(1, 366):
     cprint('================== День {} =================='.format(day), color='red')
@@ -323,41 +295,6 @@ for day in range(1, 366):
     cprint(home, color='cyan')
 cprint('За год заработано денег - {}, съедено еды - {}, куплено шуб - {}'.format(home.salary_history,\
        home.food_history, home.fur_coats))
-
-#
-# После подтверждения учителем первой части надо
-# отщепить ветку develop и в ней начать добавлять котов в модель семьи
-#
-# Кот может:
-#   есть,
-#   спать,
-#   драть обои
-#
-# Люди могут:
-#   гладить кота (растет степень счастья на 5 пунктов)
-#
-# В доме добавляется:
-#   еда для кота (в начале - 30)
-#
-# У кота есть имя и степень сытости (в начале - 30)
-# Любое действие кота, кроме "есть", приводит к уменьшению степени сытости на 10 пунктов
-# Еда для кота покупается за деньги: за 10 денег 10 еды.
-# Кушает кот максимум по 10 единиц еды, степень сытости растет на 2 пункта за 1 пункт еды.
-# Степень сытости не должна падать ниже 0, иначе кот умрет от голода.
-#
-# Если кот дерет обои, то грязи становится больше на 5 пунктов
-
-
-######################################################## Часть вторая бис
-#
-# После реализации первой части надо в ветке мастер продолжить работу над семьей - добавить ребенка
-#
-# Ребенок может:
-#   есть,
-#   спать,
-#
-# отличия от взрослых - кушает максимум 10 единиц еды,
-# степень счастья  - не меняется, всегда ==100 ;)
 
 
 ######################################################## Часть третья
