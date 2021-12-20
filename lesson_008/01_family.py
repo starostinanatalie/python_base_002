@@ -14,6 +14,7 @@ class House:
         self.fur_coats = 0
         self.dirt = 0
         self.food_for_cat = 30
+        self.food_for_cat_history = 0
         self.cats = 0
 
     def become_dirt(self):
@@ -54,7 +55,7 @@ class Human:
         if self.house.food > 30:
             self.fullfilness += 30
             self.house.food_history += 30
-            self.house.food -=30
+            self.house.food -= 30
             cprint('{} поел, сытость {}'.format(self.name, self.fullfilness))
         else:
             self.fullfilness += self.house.food
@@ -64,8 +65,9 @@ class Human:
 
 class Husband(Human):
 
-    def __init__(self, name, house):
+    def __init__(self, name, house, salary):
         super().__init__(name, house)
+        self.salary = salary
 
     def __str__(self):
         return super().__str__()
@@ -93,10 +95,10 @@ class Husband(Human):
                 self.gaming()
 
     def work(self):
-        self.house.money += 150
-        self.house.salary_history += 150
+        self.house.money += self.salary
+        self.house.salary_history += self.salary
         self.fullfilness -= 10
-        cprint('{} работал'.format(self.name))
+        cprint('{} работал, заработал {}'.format(self.name, self.salary))
 
     def gaming(self):
         self.fullfilness -= 10
@@ -155,9 +157,9 @@ class Wife(Human):
 
     def buy_food_for_cat(self):
         self.fullfilness -= 10
-        if self.house.money > 150:
-            self.house.food_for_cat += 150
-            self.house.money -= 150
+        if self.house.money > 350:
+            self.house.food_for_cat += 350
+            self.house.money -= 350
             cprint('{} купила еды котам на неделю'.format(self.name))
         else:
             self.house.food_for_cat += self.house.money
@@ -182,16 +184,17 @@ class Wife(Human):
 
 class Cat():
 
-    cats = ['Барсик', 'Вася', 'Пушок', 'Маркиз', 'Мурзик', 'Кокс', 'Айсик', 'Хрюндель', 'Шизик', 'Багира']
-
+    cats = []
     def __init__(self, name, house):
         self.name = name
         self.fullfilness = 30
         self.house = house
-        house.cats += 1
+        self.house.cats += 1
+        Cat.cats.append(self.name)
+        self.dead = False
 
     def __str__(self):
-        if not self.is_dead():
+        if not self.dead:
             return 'Кот {}, сытость - {}'.format(self.name, self.fullfilness)
         else:
             return 'Кот {} уже умер'.format(self.name)
@@ -200,14 +203,18 @@ class Cat():
         if self.house.food_for_cat >= 10:
             self.fullfilness += 20
             self.house.food_for_cat -= 10
+            self.house.food_for_cat_history += 10
             cprint('{} поел от пуза'.format(self.name), color='yellow')
-
         elif self.house.food_for_cat > 0:
             self.fullfilness += self.house.food_for_cat * 2
+            self.house.food_for_cat_history += self.house.food_for_cat
             self.house.food_for_cat = 0
             cprint('{} ну поел'.format(self.name), color='yellow')
+        elif self.fullfilness > 0:
+            cprint('Для {} еды больше нет'.format(self.name))
         else:
             cprint('Для {} еды больше нет'.format(self.name))
+            self.fullfilness -= 1
 
     def sleep(self):
         self.fullfilness -= 10
@@ -218,12 +225,18 @@ class Cat():
         self.house.dirt += 5
         cprint('{} дерет обои'.format(self.name), color='yellow')
 
-    def is_dead(self):
-        return self.fullfilness < 0
+    def die(self):
+        self.dead = True
+        print(self.dead)
+        Cat.cats.remove(self.name)
+        self.house.cats -= 1
+        cprint('{} умер'.format(self.name), color='red')
 
     def act(self):
-        if self.is_dead():
-            cprint('{} умер'.format(self.name), color='red')
+        if self.dead:
+            return
+        elif self.fullfilness < 0:
+            self.die()
         elif self.fullfilness < 5:
             self.eat()
         else:
@@ -251,7 +264,7 @@ class Child(Human):
             self.eat()
         else:
             dice = randint(1, 6)
-            if dice == 1:
+            if dice == 1 or dice == 6:
                 self.eat()
             else:
                 self.sleep()
@@ -260,7 +273,7 @@ class Child(Human):
         if self.house.food > 10:
             self.fullfilness += 10
             self.house.food_history += 10
-            self.house.food -=10
+            self.house.food -= 10
             cprint('{} поел, сытость {}'.format(self.name, self.fullfilness))
         else:
             self.fullfilness += self.house.food
@@ -270,31 +283,34 @@ class Child(Human):
 
     def sleep(self):
         self.fullfilness -= 10
-        cprint('{} поел, сытость {}'.format(self.name, self.fullfilness))
+        cprint('{} спит, сытость {}'.format(self.name, self.fullfilness))
 
 
-
+cat_names = ['Барсик', 'Вася', 'Пушок', 'Маркиз', 'Мурзик', 'Кокс', 'Айсик', 'Хрюндель', 'Шизик', 'Багира']
 home = House()
-serge = Husband(name='Сережа', house=home)
+serge = Husband(name='Сережа', house=home, salary=randint(50, 401))
 masha = Wife(name='Маша', house=home)
 kolya = Child(name='Коля', house=home)
+cats = [Cat(name=cat_name, house=home) for cat_name in cat_names[:9]]
 
 for day in range(1, 366):
     cprint('================== День {} =================='.format(day), color='red')
+    print(Cat.cats)
     serge.act()
     masha.act()
     kolya.act()
-    for cat in cats[:8]:
+    for cat in cats:
         cat.act()
     home.become_dirt()
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(kolya, color='cyan')
-    for cat in cats[:8]:
+    for cat in cats:
         cprint(cat, color='blue')
     cprint(home, color='cyan')
-cprint('За год заработано денег - {}, съедено еды - {}, куплено шуб - {}'.format(home.salary_history,\
-       home.food_history, home.fur_coats))
+cprint('За год заработано денег {} при зарплате {}, съедено еды {}, съедено еды котами {}, выжило котов {}, \
+куплено шуб {}'.format(home.salary_history, serge.salary, home.food_history, home.food_for_cat_history,\
+                               home.cats, home.fur_coats))
 
 
 ######################################################## Часть третья
