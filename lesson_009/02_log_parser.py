@@ -23,7 +23,24 @@
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
-# TODO здесь ваш код
+class LogParser:
+
+    def __init__(self, filename):
+        pass
+
+    def read_log(self):
+        pass
+
+    def write_stat(self):
+        pass
+
+    def parse_log(self):
+        pass
+
+    def statistic(self):
+        pass
+
+
 
 # После зачета первого этапа нужно сделать группировку событий
 #  - по часам

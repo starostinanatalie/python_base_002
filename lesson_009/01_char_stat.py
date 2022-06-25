@@ -32,6 +32,7 @@ class CharStatistic():
     def __init__(self, filename):
         self.file_name = filename
         self.statistic = {}
+        self.statistic_ordered = []
 
     def unzip_file(self, file):
         print('unzip file')
@@ -46,7 +47,7 @@ class CharStatistic():
         print('+----------+----------+')
         print(f'|{"буква":^10}|{"частота":^10}')
         print('+----------+----------+')
-        for key, value in self.statistic.items():
+        for key, value in reversed(sorted(self.statistic.items(), key=lambda x: x[1])):
             print(f'{key:^10}|{value:^10}|')
         print('+----------+----------+')
 
@@ -70,6 +71,7 @@ class CharStatistic():
 filename = "voyna-i-mir.txt.zip"
 statistic = CharStatistic(filename)
 statistic.draw_table()
+
 
 
 
