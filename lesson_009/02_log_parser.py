@@ -26,15 +26,20 @@
 class LogParser:
 
     def __init__(self, filename):
-        pass
+        self.filename = filename
+        self.stat = {}
 
     def read_log(self):
-        pass
+        with open(self.file_name, 'r', encoding='cp1251') as file:
+            for line in file:
+                self.parse_log(line=line)
 
     def write_stat(self):
-        pass
+        with open(self.file_name, 'w', encoding='cp1251') as file:
+            for key, value in self.stat:
+                file.writelines(f'[ {key} ] {value}')
 
-    def parse_log(self):
+    def parse_log(self, line):
         pass
 
     def statistic(self):
