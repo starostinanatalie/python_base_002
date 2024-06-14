@@ -10,7 +10,3 @@
 result = (1 + 2) * 3
 print(result)
 
-answer = 1 * (-2 + 3 + 4) * 5
-print(answer)
-
-# зачет!

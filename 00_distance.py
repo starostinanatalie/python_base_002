@@ -35,26 +35,6 @@ distances['Paris']['London'] = paris_to_london
 
 print(distances)
 
-moscow_paris = ((moscow[0] - paris[0]) ** 2 + (moscow[1] - paris[1]) ** 2) ** 0.5
-london_paris = ((paris[0] - london[0]) ** 2 + (paris[1] - london[1]) ** 2) ** 0.5
-moscow_london = ((moscow[0] - london[0]) ** 2 + (moscow[1] - london[1]) ** 2) ** 0.5
-
-distances_2 = {
-    'Moscow': {
-        'London': moscow_london,
-        'Paris': moscow_paris
-    },
-    'London': {
-        'Moscow': moscow_london,
-        'Paris': london_paris
-    },
-    'Paris': {
-        'Moscow': moscow_paris,
-        'London': london_paris
-    }
-}
-
-print(distances_2)
 #  Вы создали 3 пустых словаря внутри distances, а затем начали по 1ому добавлять в него ключи. Сделайте так:
 #       ✅ 1. вначале высчитайте переменные (moscow_paris, london_paris, moscow_london);
 #       2. инициализируйте словарь сразу при объявлении (ниже пример).
@@ -114,4 +94,3 @@ print(d_1 == d_2)
 #  .
 #  Аналогично для все остальных связок: Лондон-Москва, Париж-Лондон и т.п.
 
-# зачет!
